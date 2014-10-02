@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //[self.view setBackgroundColor: [UIColor colorWithRed: 46.f/255.f green: 46.f/255.f blue: 59.f/255.f alpha: 1.f]];
+    
     // Initialize a Game
     GameView *gameView = [[GameView alloc] initWithFrame: [self.view bounds]];
     

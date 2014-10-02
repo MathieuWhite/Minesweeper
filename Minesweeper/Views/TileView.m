@@ -14,4 +14,25 @@
 
 @implementation TileView
 
+#pragma mark - UIView Methods
+
+- (instancetype) initWithFrame: (CGRect) frame
+{
+    self = [super initWithFrame: frame];
+    
+    if (self)
+    {
+        [self initTile];
+    }
+    
+    return self;
+}
+
+#pragma mark - Object Methods
+
+- (void) initTile
+{
+    [self setBackgroundColor: [UIColor grayColor]];
+}
+
 @end
