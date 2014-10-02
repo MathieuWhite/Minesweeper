@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E063AAE19DDC63000693758 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E063AAD19DDC63000693758 /* GameView.m */; };
+		4E063AB219DDC69200693758 /* TileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E063AB119DDC69200693758 /* TileView.m */; };
 		4E9041DE19DB9359008490A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041DD19DB9359008490A0 /* main.m */; };
 		4E9041E119DB9359008490A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041E019DB9359008490A0 /* AppDelegate.m */; };
 		4E9041E419DB935A008490A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041E319DB935A008490A0 /* ViewController.m */; };
@@ -25,6 +27,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E063AAC19DDC63000693758 /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameView.h; path = Views/GameView.h; sourceTree = "<group>"; };
+		4E063AAD19DDC63000693758 /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameView.m; path = Views/GameView.m; sourceTree = "<group>"; };
+		4E063AB019DDC69200693758 /* TileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TileView.h; path = Views/TileView.h; sourceTree = "<group>"; };
+		4E063AB119DDC69200693758 /* TileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TileView.m; path = Views/TileView.m; sourceTree = "<group>"; };
 		4E9041D819DB9359008490A0 /* Minesweeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minesweeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9041DC19DB9359008490A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E9041DD19DB9359008490A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -56,6 +62,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E063AAF19DDC63700693758 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E063AAC19DDC63000693758 /* GameView.h */,
+				4E063AAD19DDC63000693758 /* GameView.m */,
+				4E063AB019DDC69200693758 /* TileView.h */,
+				4E063AB119DDC69200693758 /* TileView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		4E9041CF19DB9359008490A0 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +97,7 @@
 				4E9041E219DB9359008490A0 /* ViewController.h */,
 				4E9041E319DB935A008490A0 /* ViewController.m */,
 				4E9041E819DB935A008490A0 /* Images.xcassets */,
+				4E063AAF19DDC63700693758 /* Views */,
 				4E9041DB19DB9359008490A0 /* Supporting Files */,
 			);
 			path = Minesweeper;
@@ -213,6 +231,8 @@
 			files = (
 				4E9041E419DB935A008490A0 /* ViewController.m in Sources */,
 				4E9041E119DB9359008490A0 /* AppDelegate.m in Sources */,
+				4E063AB219DDC69200693758 /* TileView.m in Sources */,
+				4E063AAE19DDC63000693758 /* GameView.m in Sources */,
 				4E9041DE19DB9359008490A0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

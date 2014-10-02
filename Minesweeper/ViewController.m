@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "GameView.h"
 
 @interface ViewController ()
+
+@property (nonatomic, weak) GameView *gameView;
 
 @end
 
@@ -17,7 +20,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor: [UIColor redColor]];
+    // Initialize a Game
+    GameView *gameView = [[GameView alloc] initWithFrame: [self.view bounds]];
+    
+    // Add the components to the view
+    [self.view addSubview: gameView];
+    
+    // Set each component to a property
+    [self setGameView: gameView];
 }
 
 - (void)didReceiveMemoryWarning {
