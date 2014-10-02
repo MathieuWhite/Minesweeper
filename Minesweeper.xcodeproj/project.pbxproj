@@ -14,6 +14,8 @@
 		4E9041E419DB935A008490A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041E319DB935A008490A0 /* ViewController.m */; };
 		4E9041E919DB935A008490A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E9041E819DB935A008490A0 /* Images.xcassets */; };
 		4E9041F819DB935A008490A0 /* MinesweeperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041F719DB935A008490A0 /* MinesweeperTests.m */; };
+		4EE33EFB19DDC86E000BBD09 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE33EFA19DDC86E000BBD09 /* Game.m */; };
+		4EE33EFE19DDC87F000BBD09 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE33EFD19DDC87F000BBD09 /* Tile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,10 @@
 		4E9041F119DB935A008490A0 /* MinesweeperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinesweeperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9041F619DB935A008490A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E9041F719DB935A008490A0 /* MinesweeperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinesweeperTests.m; sourceTree = "<group>"; };
+		4EE33EF919DDC86E000BBD09 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Game.h; path = Models/Game.h; sourceTree = "<group>"; };
+		4EE33EFA19DDC86E000BBD09 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Game.m; path = Models/Game.m; sourceTree = "<group>"; };
+		4EE33EFC19DDC87F000BBD09 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tile.h; path = Models/Tile.h; sourceTree = "<group>"; };
+		4EE33EFD19DDC87F000BBD09 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tile.m; path = Models/Tile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,17 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		4E063AB319DDC80900693758 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4EE33EF919DDC86E000BBD09 /* Game.h */,
+				4EE33EFA19DDC86E000BBD09 /* Game.m */,
+				4EE33EFC19DDC87F000BBD09 /* Tile.h */,
+				4EE33EFD19DDC87F000BBD09 /* Tile.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		4E9041CF19DB9359008490A0 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +114,7 @@
 				4E9041E219DB9359008490A0 /* ViewController.h */,
 				4E9041E319DB935A008490A0 /* ViewController.m */,
 				4E9041E819DB935A008490A0 /* Images.xcassets */,
+				4E063AB319DDC80900693758 /* Models */,
 				4E063AAF19DDC63700693758 /* Views */,
 				4E9041DB19DB9359008490A0 /* Supporting Files */,
 			);
@@ -232,7 +250,9 @@
 				4E9041E419DB935A008490A0 /* ViewController.m in Sources */,
 				4E9041E119DB9359008490A0 /* AppDelegate.m in Sources */,
 				4E063AB219DDC69200693758 /* TileView.m in Sources */,
+				4EE33EFB19DDC86E000BBD09 /* Game.m in Sources */,
 				4E063AAE19DDC63000693758 /* GameView.m in Sources */,
+				4EE33EFE19DDC87F000BBD09 /* Tile.m in Sources */,
 				4E9041DE19DB9359008490A0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
