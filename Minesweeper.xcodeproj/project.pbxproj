@@ -10,9 +10,7 @@
 		4E9041DE19DB9359008490A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041DD19DB9359008490A0 /* main.m */; };
 		4E9041E119DB9359008490A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041E019DB9359008490A0 /* AppDelegate.m */; };
 		4E9041E419DB935A008490A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041E319DB935A008490A0 /* ViewController.m */; };
-		4E9041E719DB935A008490A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E9041E519DB935A008490A0 /* Main.storyboard */; };
 		4E9041E919DB935A008490A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E9041E819DB935A008490A0 /* Images.xcassets */; };
-		4E9041EC19DB935A008490A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E9041EA19DB935A008490A0 /* LaunchScreen.xib */; };
 		4E9041F819DB935A008490A0 /* MinesweeperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041F719DB935A008490A0 /* MinesweeperTests.m */; };
 /* End PBXBuildFile section */
 
@@ -34,9 +32,7 @@
 		4E9041E019DB9359008490A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4E9041E219DB9359008490A0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4E9041E319DB935A008490A0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		4E9041E619DB935A008490A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4E9041E819DB935A008490A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4E9041EB19DB935A008490A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4E9041F119DB935A008490A0 /* MinesweeperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinesweeperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E9041F619DB935A008490A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E9041F719DB935A008490A0 /* MinesweeperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MinesweeperTests.m; sourceTree = "<group>"; };
@@ -81,13 +77,9 @@
 		4E9041DA19DB9359008490A0 /* Minesweeper */ = {
 			isa = PBXGroup;
 			children = (
-				4E9041DF19DB9359008490A0 /* AppDelegate.h */,
-				4E9041E019DB9359008490A0 /* AppDelegate.m */,
 				4E9041E219DB9359008490A0 /* ViewController.h */,
 				4E9041E319DB935A008490A0 /* ViewController.m */,
-				4E9041E519DB935A008490A0 /* Main.storyboard */,
 				4E9041E819DB935A008490A0 /* Images.xcassets */,
-				4E9041EA19DB935A008490A0 /* LaunchScreen.xib */,
 				4E9041DB19DB9359008490A0 /* Supporting Files */,
 			);
 			path = Minesweeper;
@@ -96,6 +88,8 @@
 		4E9041DB19DB9359008490A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E9041DF19DB9359008490A0 /* AppDelegate.h */,
+				4E9041E019DB9359008490A0 /* AppDelegate.m */,
 				4E9041DC19DB9359008490A0 /* Info.plist */,
 				4E9041DD19DB9359008490A0 /* main.m */,
 			);
@@ -199,8 +193,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E9041E719DB935A008490A0 /* Main.storyboard in Resources */,
-				4E9041EC19DB935A008490A0 /* LaunchScreen.xib in Resources */,
 				4E9041E919DB935A008490A0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,25 +234,6 @@
 			targetProxy = 4E9041F219DB935A008490A0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		4E9041E519DB935A008490A0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4E9041E619DB935A008490A0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4E9041EA19DB935A008490A0 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4E9041EB19DB935A008490A0 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		4E9041F919DB935A008490A0 /* Debug */ = {
