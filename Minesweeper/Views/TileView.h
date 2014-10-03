@@ -10,4 +10,6 @@
 
 @interface TileView : UIView
 
+- (void) setDarkerTone: (BOOL) isDarkerTone;
+
 @end
