@@ -39,6 +39,7 @@
     // Set the background color
     [self setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
+    /*
     // Initialize the scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: CGRectMake(0, 0, 320, 568)];
     [scrollView setContentSize: CGSizeMake(576, 576)];
@@ -48,6 +49,7 @@
     [scrollView setShowsHorizontalScrollIndicator: NO];
     [scrollView setShowsVerticalScrollIndicator: NO];
     [scrollView setDelegate: self];
+     */
     
     // Create the CardViews
     for (NSUInteger row = 0; row < 9; row++)
@@ -61,9 +63,10 @@
             
             if ((row + col) % 2 == 0)
                 [tileView setDarkerTone: YES];
-                //[tileView setBackgroundColor: [UIColor colorWithRed: 89.0f/255.0f green: 86.0f/255.0f blue: 101.0f/255.0f alpha: 1.0f]];
-            else [tileView setBackgroundColor: [UIColor colorWithRed: 102.0f/255.0f green: 99.0f/255.0f blue: 113.0f/255.0f alpha: 1.0f]];
-            [scrollView addSubview: tileView];
+            else [tileView setDarkerTone: NO];
+            
+            //[scrollView addSubview: tileView];
+            [self addSubview: tileView];
         }
     }
     
@@ -75,10 +78,10 @@
     //[scrollView addSubview: tileView];
     
     // Add the scroll view to the view
-    [self addSubview: scrollView];
+    //[self addSubview: scrollView];
     
     // Set each component to a property
-    [self setScrollView: scrollView];
+    //[self setScrollView: scrollView];
     //[self setTileView: tileView];
 }
 
