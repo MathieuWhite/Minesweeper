@@ -12,6 +12,7 @@
 @interface GameView() <UIScrollViewDelegate>
 
 @property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, weak) UIView *mineFieldView;
 @property (nonatomic, weak) TileView *tileView;
 
 @end
@@ -39,17 +40,18 @@
     // Set the background color
     [self setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
-    /*
     // Initialize the scroll view
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: CGRectMake(0, 0, 320, 568)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: [self bounds]];
     [scrollView setContentSize: CGSizeMake(576, 576)];
     [scrollView setMinimumZoomScale: 0.5f];
-    [scrollView setMaximumZoomScale: 1.0f];
-    [scrollView setZoomScale: 1.0f];
+    [scrollView setMaximumZoomScale: 1];
+    [scrollView setZoomScale: 1];
     [scrollView setShowsHorizontalScrollIndicator: NO];
     [scrollView setShowsVerticalScrollIndicator: NO];
     [scrollView setDelegate: self];
-     */
+    
+    // Create the minefield view
+    UIView *mineFieldView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 576, 576)];
     
     // Create the CardViews
     for (NSUInteger row = 0; row < 9; row++)
@@ -66,7 +68,7 @@
             else [tileView setDarkerTone: NO];
             
             //[scrollView addSubview: tileView];
-            [self addSubview: tileView];
+            [mineFieldView addSubview: tileView];
         }
     }
     
@@ -75,14 +77,16 @@
     //[tileView setCenter: [scrollView center]];
     
     // Add the components to the scroll view
-    //[scrollView addSubview: tileView];
+    [scrollView addSubview: mineFieldView];
     
     // Add the scroll view to the view
-    //[self addSubview: scrollView];
+    [self addSubview: scrollView];
+    //[self addSubview: mineFieldView];
     
     // Set each component to a property
-    //[self setScrollView: scrollView];
+    [self setScrollView: scrollView];
     //[self setTileView: tileView];
+    [self setMineFieldView: mineFieldView];
 }
 
 #pragma mark - UIScrollViewDelegate Methods
@@ -128,7 +132,7 @@
 
 - (UIView *) viewForZoomingInScrollView: (UIScrollView *) scrollView
 {
-    return self;
+    return [self mineFieldView];
 }
 
 @end
