@@ -61,42 +61,63 @@
 {
     // Create the gesture recognizer to handle single taps on the tile
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
-                                                    initWithTarget: self action: @selector(tileTouched)];
+                                                    initWithTarget: self action: @selector(touchedTile)];
     
     // Create the gesture recognizer to handle long presses on the tile
     UILongPressGestureRecognizer *longPressGestureRecongnizer = [[UILongPressGestureRecognizer alloc]
-                                                                 initWithTarget: self action: @selector(tileTouchedAndHeld)];
+                                                                 initWithTarget: self action: @selector(touchedAndHeldTile)];
     
     // Initialize the flag image
-    UIImageView *flagImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"flag"]];
+    UIImageView *flagImage = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 64, 64)];
     [flagImage setFrame: CGRectMake(0, 0, 64, 64)];
     
     // Initialize the label
     UILabel *adjacentCellsLabel = [[UILabel alloc] initWithFrame: [self bounds]];
     [adjacentCellsLabel setTextAlignment: NSTextAlignmentCenter];
+    [adjacentCellsLabel setFont: [UIFont systemFontOfSize: 30.0f]];
     
     // Add the objets to the view
     [self addGestureRecognizer: tapGestureRecognizer];
     [self addGestureRecognizer: longPressGestureRecongnizer];
+    [self addSubview: flagImage];
+    [self addSubview: adjacentCellsLabel];
     
     // Set the objects to properties
     [self setTapGestureRecognizer: tapGestureRecognizer];
     [self setLongPressGestureRecongnizer: longPressGestureRecongnizer];
     [self setFlagImage: flagImage];
     [self setAdjacentCellsLabel: adjacentCellsLabel];
+    
+    [self setIsFlagged: NO];
 }
 
-- (void) tileTouched
+- (void) touchedTile
 {
+    [self.tapGestureRecognizer setEnabled: NO];
+    [self.longPressGestureRecongnizer setEnabled: NO];
+    
     if ([self isDarkTone]) [self setBackgroundColor: colorForRevealedDarkerTone];
     else [self setBackgroundColor: colorForRevealedLighterTone];
+    
+    if ([self adjacentCells] == 1) [self.adjacentCellsLabel setTextColor: colorForNumberOne];
+    else if ([self adjacentCells] == 2) [self.adjacentCellsLabel setTextColor: colorForNumberTwo];
+    else if ([self adjacentCells] == 3) [self.adjacentCellsLabel setTextColor: colorForNumberThree];
+    else if ([self adjacentCells] == 4) [self.adjacentCellsLabel setTextColor: colorForNumberFour];
+    else if ([self adjacentCells] == 5) [self.adjacentCellsLabel setTextColor: colorForNumberFive];
+    else if ([self adjacentCells] == 6) [self.adjacentCellsLabel setTextColor: colorForNumberSix];
+    else if ([self adjacentCells] == 7) [self.adjacentCellsLabel setTextColor: colorForNumberSeven];
+    else if ([self adjacentCells] == 8) [self.adjacentCellsLabel setTextColor: colorForNumberEight];
+    else [self.adjacentCellsLabel setTextColor: [UIColor whiteColor]];
+    
+    NSLog(@"%lu", [self adjacentCells]);
+    [self.adjacentCellsLabel setText: [NSString stringWithFormat: @"%lu", [self adjacentCells]]];
 }
 
-- (void) tileTouchedAndHeld
+- (void) touchedAndHeldTile
 {
+    [self.tapGestureRecognizer setEnabled: NO];
     [self setBackgroundColor: colorForYellowFlag];
-    //[self addSubview: flagImage];
-    //[self.tapGestureRecognizer setEnabled: NO];
+    [self.flagImage setImage: [UIImage imageNamed: @"flag"]];
     [self setIsFlagged: YES];
 }
 

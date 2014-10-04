@@ -117,13 +117,10 @@
     return [self rows] * [self columns] - [self mines] - [self revealedTiles];
 }
 
-// Returns the value of the tile (from -2 to 8)
+// Returns the value of the tile (from -1 to 8)
 - (NSInteger) revealTileAtRow: (NSUInteger) row column: (NSUInteger) column
-{
-    if ([self didHitMine]) return -2; // Mine was already hit
-    
+{    
     Tile *tile = [self tileAtRow: row column: column];
-    if ([tile isRevealed]) return -2; // Tile was already revealed
     
     [tile setIsRevealed: YES];
     self.revealedTiles++;

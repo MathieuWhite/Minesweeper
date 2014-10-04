@@ -7,7 +7,6 @@
 //
 
 #import "GameView.h"
-#import "TileView.h"
 #import "MinefieldView.h"
 
 @interface GameView() <UIScrollViewDelegate>

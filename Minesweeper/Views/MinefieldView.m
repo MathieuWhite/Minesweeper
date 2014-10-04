@@ -8,10 +8,12 @@
 
 #import "MinefieldView.h"
 #import "Minefield.h"
+#import "TileView.h"
 
 @interface MinefieldView()
 
 @property (nonatomic, strong) Minefield *minefield;
+@property (nonatomic, strong) NSMutableArray *tileViews;
 
 @end
 
@@ -60,12 +62,45 @@
     {
         for (NSUInteger columnIndex = 0; columnIndex < [self.minefield columns]; columnIndex++)
         {
-            NSLog(@"(%lu, %lu): %lu", rowIndex, columnIndex, [[self.minefield tileAtRow: rowIndex column: columnIndex] adjacentMines]);
+            NSLog(@"(%lu, %lu): %lu", rowIndex, columnIndex, [self.minefield revealTileAtRow: rowIndex column: columnIndex]);
         }
     }
     
+    // Set the background color
+    [self setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
+    // The MinefiledView frame will be the amount of tiles times their width
+    [self setFrame: CGRectMake(0, 0, [self.minefield columns] * 64, [self.minefield rows] * 64)];
     
+    // Initialize the array that will store the TileViews
+    NSMutableArray *tileViews = [[NSMutableArray alloc] initWithCapacity: [self.minefield rows]];
+    
+    // Initialize the TileViews and store them in the array
+    for (NSUInteger rowIndex = 0; rowIndex < [self.minefield rows]; rowIndex++)
+    {
+        NSMutableArray *row = [[NSMutableArray alloc] initWithCapacity: [self.minefield columns]];
+        [self.tileViews addObject: row];
+        
+        for (NSUInteger columnIndex = 0; columnIndex < [self.minefield columns]; columnIndex++)
+        {
+            CGFloat offsetX = (columnIndex * 64);
+            CGFloat offsetY = (rowIndex * 64);
+            
+            TileView *tileView = [[TileView alloc] initWithFrame: CGRectMake(offsetX, offsetY, 64, 64)];
+            
+            if ((columnIndex + rowIndex) % 2 == 0)
+                [tileView setDarkerTone: YES];
+            else [tileView setDarkerTone: NO];
+            
+            [tileView setAdjacentCells: [self.minefield revealTileAtRow: rowIndex column: columnIndex]];
+            
+            [row addObject: tileView];
+            [self addSubview: tileView];
+        }
+    }
+    
+    // Set each component to a property
+    [self setTileViews: tileViews];
 }
 
 @end

@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Tile.h"
 
 @interface TileView : UIView
 
 @property (nonatomic) NSInteger adjacentCells;
 
 - (void) setDarkerTone: (BOOL) isDarkerTone;
+- (void) touchedTile;
 
 @end
