@@ -7,13 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Tile.h"
+
+@class TileView;
+
+@protocol TileViewDelegate <NSObject>
+
+- (void) revealedTileIsMine: (TileView *) tileView;
+- (void) didFlagTile: (TileView *) tileView;
+- (void) didUnFlagTile: (TileView *) tileView;
+
+@end
 
 @interface TileView : UIView
 
-@property (nonatomic) NSInteger adjacentCells;
+@property (nonatomic, weak) id <TileViewDelegate> delegate;
+
+@property (nonatomic, strong) NSMutableArray *adjacentTiles;
+@property (nonatomic) NSInteger adjacentMines;
+
+@property (nonatomic) BOOL isMine;
 
 - (void) setDarkerTone: (BOOL) isDarkerTone;
-- (void) touchedTile;
+- (void) revealTile;
+- (void) revealTileViewMineAfterMineHit;
+- (void) disableGestureRecognizers;
+- (void) enableGestureRecognizers;
 
 @end

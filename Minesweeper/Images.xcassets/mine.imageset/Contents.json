@@ -2,17 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "flag@2x.png"
+      "filename" : "mine@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "flag@3x.png"
+      "filename" : "mine@3x.png"
     }
   ],
   "info" : {

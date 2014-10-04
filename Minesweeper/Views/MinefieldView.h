@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TileView.h"
 
 @interface MinefieldView : UIView
 
+@property (nonatomic, strong) NSMutableArray *tileViews;
+
 - (instancetype) initWithDifficulty: (NSString *) difficulty;
+
+- (void) storeTileViewAdjacentTiles;
 
 @end

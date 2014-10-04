@@ -14,6 +14,7 @@
 #define colorForRevealedLighterTone [UIColor colorWithRed: 38.0f/255.0f green: 38.0f/255.0f blue: 49.0f/255.0f alpha: 1.0f]
 #define colorForRevealedDarkerTone [UIColor colorWithRed: 34.0f/255.0f green: 34.0f/255.0f blue: 45.0f/255.0f alpha: 1.0f]
 #define colorForYellowFlag [UIColor colorWithRed: 255.0f/255.0f green: 253.0f/255.0f blue: 103.0f/255.0f alpha: 1.0f]
+#define colorForHitMine [UIColor colorWithRed: 144.0f/255.0f green: 22.0f/255.0f blue: 22.0f/255.0f alpha: 1.0f]
 
 #pragma mark - Number Colors
 #define colorForNumberOne [UIColor colorWithRed: 103.0f/255.0f green: 175.0f/255.0f blue: 255.0f/255.0f alpha: 1.0f]
@@ -32,10 +33,12 @@
 @property (nonatomic, weak) UILongPressGestureRecognizer *longPressGestureRecongnizer;
 
 @property (nonatomic, weak) UIImageView *flagImage;
-@property (nonatomic, weak) UILabel *adjacentCellsLabel;
+@property (nonatomic, weak) UIImageView *mineImage;
+@property (nonatomic, weak) UILabel *adjacentMinesLabel;
 
-@property BOOL isDarkTone;
-@property BOOL isFlagged;
+@property (nonatomic) BOOL isDarkTone;
+@property (nonatomic) BOOL isFlagged;
+@property (nonatomic) BOOL didHitMine;
 
 @end
 
@@ -65,60 +68,153 @@
     
     // Create the gesture recognizer to handle long presses on the tile
     UILongPressGestureRecognizer *longPressGestureRecongnizer = [[UILongPressGestureRecognizer alloc]
-                                                                 initWithTarget: self action: @selector(touchedAndHeldTile)];
+                                                                 initWithTarget: self action: @selector(touchedAndHeldTile:)];
     
     // Initialize the flag image
     UIImageView *flagImage = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 64, 64)];
-    [flagImage setFrame: CGRectMake(0, 0, 64, 64)];
+    
+    // Initialize the mine image
+    UIImageView *mineImage = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 64, 64)];
     
     // Initialize the label
-    UILabel *adjacentCellsLabel = [[UILabel alloc] initWithFrame: [self bounds]];
-    [adjacentCellsLabel setTextAlignment: NSTextAlignmentCenter];
-    [adjacentCellsLabel setFont: [UIFont systemFontOfSize: 30.0f]];
+    UILabel *adjacentMinesLabel = [[UILabel alloc] initWithFrame: [self bounds]];
+    [adjacentMinesLabel setTextAlignment: NSTextAlignmentCenter];
+    [adjacentMinesLabel setFont: [UIFont systemFontOfSize: 30.0f]];
     
     // Add the objets to the view
     [self addGestureRecognizer: tapGestureRecognizer];
     [self addGestureRecognizer: longPressGestureRecongnizer];
-    [self addSubview: flagImage];
-    [self addSubview: adjacentCellsLabel];
+    //[self addSubview: flagImage];
+    [self addSubview: mineImage];
+    [self addSubview: adjacentMinesLabel];
     
     // Set the objects to properties
     [self setTapGestureRecognizer: tapGestureRecognizer];
     [self setLongPressGestureRecongnizer: longPressGestureRecongnizer];
     [self setFlagImage: flagImage];
-    [self setAdjacentCellsLabel: adjacentCellsLabel];
+    [self setMineImage: mineImage];
+    [self setAdjacentMinesLabel: adjacentMinesLabel];
     
     [self setIsFlagged: NO];
+    [self setIsMine: NO];
+    [self setDidHitMine: NO];
 }
 
 - (void) touchedTile
 {
-    [self.tapGestureRecognizer setEnabled: NO];
-    [self.longPressGestureRecongnizer setEnabled: NO];
+    [self revealTile];
+}
+
+- (void) revealTile
+{
+    [self disableGestureRecognizers];
     
     if ([self isDarkTone]) [self setBackgroundColor: colorForRevealedDarkerTone];
     else [self setBackgroundColor: colorForRevealedLighterTone];
     
-    if ([self adjacentCells] == 1) [self.adjacentCellsLabel setTextColor: colorForNumberOne];
-    else if ([self adjacentCells] == 2) [self.adjacentCellsLabel setTextColor: colorForNumberTwo];
-    else if ([self adjacentCells] == 3) [self.adjacentCellsLabel setTextColor: colorForNumberThree];
-    else if ([self adjacentCells] == 4) [self.adjacentCellsLabel setTextColor: colorForNumberFour];
-    else if ([self adjacentCells] == 5) [self.adjacentCellsLabel setTextColor: colorForNumberFive];
-    else if ([self adjacentCells] == 6) [self.adjacentCellsLabel setTextColor: colorForNumberSix];
-    else if ([self adjacentCells] == 7) [self.adjacentCellsLabel setTextColor: colorForNumberSeven];
-    else if ([self adjacentCells] == 8) [self.adjacentCellsLabel setTextColor: colorForNumberEight];
-    else [self.adjacentCellsLabel setTextColor: [UIColor whiteColor]];
+    if ([self adjacentMines] == 0)
+    {
+        return;
+    }
     
-    NSLog(@"%lu", [self adjacentCells]);
-    [self.adjacentCellsLabel setText: [NSString stringWithFormat: @"%lu", [self adjacentCells]]];
+    if ([self adjacentMines] == 9) // should be -1
+    {
+        [self setDidHitMine: YES];
+        
+        [self setBackgroundColor: colorForHitMine];
+
+        [self.mineImage setImage: [UIImage imageNamed:@"mine"]];
+        
+        // Check if the delegate is set and it responds to the selector
+        if ([self.delegate respondsToSelector: @selector(revealedTileIsMine:)])
+            [self.delegate revealedTileIsMine: self];
+         
+        return;
+    }
+    
+    if ([self adjacentMines] == 1) [self.adjacentMinesLabel setTextColor: colorForNumberOne];
+    else if ([self adjacentMines] == 2) [self.adjacentMinesLabel setTextColor: colorForNumberTwo];
+    else if ([self adjacentMines] == 3) [self.adjacentMinesLabel setTextColor: colorForNumberThree];
+    else if ([self adjacentMines] == 4) [self.adjacentMinesLabel setTextColor: colorForNumberFour];
+    else if ([self adjacentMines] == 5) [self.adjacentMinesLabel setTextColor: colorForNumberFive];
+    else if ([self adjacentMines] == 6) [self.adjacentMinesLabel setTextColor: colorForNumberSix];
+    else if ([self adjacentMines] == 7) [self.adjacentMinesLabel setTextColor: colorForNumberSeven];
+    else if ([self adjacentMines] == 8) [self.adjacentMinesLabel setTextColor: colorForNumberEight];
+    else [self.adjacentMinesLabel setTextColor: [UIColor whiteColor]];
+    
+    NSLog(@"%lu", (long)[self adjacentMines]);
+    [self.adjacentMinesLabel setText: [NSString stringWithFormat: @"%lu", (long)[self adjacentMines]]];
 }
 
-- (void) touchedAndHeldTile
+- (void) revealTileViewMineAfterMineHit
+{
+    [self disableGestureRecognizers];
+    
+    // Reveal the mines that aren't flagged
+    if (![self didHitMine] && ![self isFlagged])
+    {
+        if ([self isDarkTone]) [self setBackgroundColor: colorForRevealedDarkerTone];
+        else [self setBackgroundColor: colorForRevealedLighterTone];
+        [self.mineImage setImage: [UIImage imageNamed:@"mine"]];
+    }
+    
+    // Reveal incorrectly flagged tiles
+    if (![self isMine] && [self isFlagged])
+    {
+        NSLog(@"Incorrect flag");
+        [self.flagImage removeFromSuperview];
+        
+        if ([self isDarkTone]) [self setBackgroundColor: colorForRevealedDarkerTone];
+        else [self setBackgroundColor: colorForRevealedLighterTone];
+        
+        [self.adjacentMinesLabel setTextColor: colorForYellowFlag];
+        [self.adjacentMinesLabel setText: @"x"];
+    }
+}
+
+- (void) disableGestureRecognizers
 {
     [self.tapGestureRecognizer setEnabled: NO];
-    [self setBackgroundColor: colorForYellowFlag];
-    [self.flagImage setImage: [UIImage imageNamed: @"flag"]];
-    [self setIsFlagged: YES];
+    [self.longPressGestureRecongnizer setEnabled: NO];
+}
+
+- (void) enableGestureRecognizers
+{
+    [self.tapGestureRecognizer setEnabled: YES];
+    [self.longPressGestureRecongnizer setEnabled: YES];
+}
+
+- (void) touchedAndHeldTile: (UILongPressGestureRecognizer *) longPressGestureRecognizer
+{
+    if (longPressGestureRecognizer.state == UIGestureRecognizerStateBegan)
+    {
+        if (![self isFlagged])
+        {
+            [self.tapGestureRecognizer setEnabled: NO];
+            [self setBackgroundColor: colorForYellowFlag];
+            [self.flagImage setImage: [UIImage imageNamed: @"flag"]];
+            [self addSubview: [self flagImage]];
+            [self setIsFlagged: YES];
+            
+            // Check if the delegate is set and it responds to the selector
+            if ([self.delegate respondsToSelector: @selector(didFlagTile:)])
+                [self.delegate didFlagTile: self];
+        }
+        else
+        {
+            [self.tapGestureRecognizer setEnabled: YES];
+            
+            if ([self isDarkTone]) [self setDarkerTone: YES];
+            else [self setDarkerTone: NO];
+            
+            [self.flagImage removeFromSuperview];
+            [self setIsFlagged: NO];
+            
+            // Check if the delegate is set and it responds to the selector
+            if ([self.delegate respondsToSelector: @selector(didUnFlagTile:)])
+                [self.delegate didUnFlagTile: self];
+        }
+    }
 }
 
 - (void) setDarkerTone: (BOOL) isDarkerTone

@@ -128,7 +128,7 @@
     if ([tile isMine])
     {
         [self setDidHitMine: YES];
-        return -1;
+        return 9; // should be -1
     }
     
     NSUInteger adjacentMines = [tile adjacentMines];

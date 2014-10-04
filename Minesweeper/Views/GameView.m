@@ -47,18 +47,17 @@
     //UIView *mineFieldView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 576, 576)];
     
     MinefieldView *minefieldView = [[MinefieldView alloc] initWithDifficulty: @"easy"];
+    //[minefieldView storeTileViewAdjacentTiles];
     
-    /*
     // Initialize the scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: [self bounds]];
-    [scrollView setContentSize: mineFieldView.frame.size];
-    [scrollView setMinimumZoomScale: (scrollView.frame.size.width / mineFieldView.frame.size.width)];
+    [scrollView setContentSize: minefieldView.bounds.size];
+    [scrollView setMinimumZoomScale: (scrollView.frame.size.width / minefieldView.frame.size.width)];
     [scrollView setMaximumZoomScale: 1];
     [scrollView setZoomScale: 1];
     [scrollView setShowsHorizontalScrollIndicator: NO];
     [scrollView setShowsVerticalScrollIndicator: NO];
     [scrollView setDelegate: self];
-     */
     
     /*
     // Create the CardViews
@@ -86,15 +85,15 @@
     //[tileView setCenter: [scrollView center]];
     
     // Add the components to the scroll view
-    //[scrollView addSubview: mineFieldView];
+    [scrollView addSubview: minefieldView];
     
     // Add the scroll view to the view
-    //[self addSubview: scrollView];
+    [self addSubview: scrollView];
     //[self addSubview: mineFieldView];
-    [self addSubview: minefieldView];
+    //[self addSubview: minefieldView];
     
     // Set each component to a property
-    //[self setScrollView: scrollView];
+    [self setScrollView: scrollView];
     //[self setTileView: tileView];
     
     [self setMinefieldView: minefieldView];
@@ -105,13 +104,13 @@
 - (void) scrollViewDidZoom: (UIScrollView *) scrollView
 {
     NSLog(@"scrollViewDidZoom");
-    /*
+    
     CGFloat offsetX = MAX((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0);
     CGFloat offsetY = MAX((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0);
     
-    [self.mineFieldView setCenter: CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
+    [self.minefieldView setCenter: CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
                                                scrollView.contentSize.height * 0.5 + offsetY)];
-    */
+    
 }
 
 - (void) scrollViewDidEndZooming: (UIScrollView *) scrollView withView: (UIView *) view atScale: (CGFloat) scale
@@ -125,7 +124,9 @@
                         animations: ^{
                             [scrollView setZoomScale: 1.0f];
                         }
-                        completion: NULL];
+                        completion: ^(BOOL finished) {
+                            [self.minefieldView setUserInteractionEnabled: YES];
+                        }];
     }
     else
     {
@@ -135,7 +136,9 @@
                         animations: ^{
                             [scrollView setZoomScale: 0.5f];
                         }
-                        completion: NULL];
+                        completion: ^(BOOL finished) {
+                            [self.minefieldView setUserInteractionEnabled: NO];
+                        }];
     }
         
 }
