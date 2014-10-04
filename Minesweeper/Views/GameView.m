@@ -47,7 +47,7 @@
     // Frame will depend on difficulty - to implement later..
     //UIView *mineFieldView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 576, 576)];
     
-    MinefieldView *minefieldView = [[MinefieldView alloc] initWithDifficulty: @"hard"];
+    MinefieldView *minefieldView = [[MinefieldView alloc] initWithDifficulty: @"easy"];
     
     /*
     // Initialize the scroll view

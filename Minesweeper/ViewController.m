@@ -17,7 +17,8 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad
+{
     [super viewDidLoad];
     
     //[self.view setBackgroundColor: [UIColor colorWithRed: 46.f/255.f green: 46.f/255.f blue: 59.f/255.f alpha: 1.f]];
@@ -32,7 +33,8 @@
     [self setGameView: gameView];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void) didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

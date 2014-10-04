@@ -9,21 +9,21 @@
 #import "TileView.h"
 
 #pragma mark Tile Colors
-#define hiddenLighterTone [UIColor colorWithRed: 102.0f/255.0f green: 99.0f/255.0f blue: 113.0f/255.0f alpha: 1.0f]
-#define hiddenDarkerTone [UIColor colorWithRed: 89.0f/255.0f green: 86.0f/255.0f blue: 101.0f/255.0f alpha: 1.0f]
-#define revealedLighterTone [UIColor colorWithRed: 38.0f/255.0f green: 38.0f/255.0f blue: 49.0f/255.0f alpha: 1.0f]
-#define revealedDarkerTone [UIColor colorWithRed: 34.0f/255.0f green: 34.0f/255.0f blue: 45.0f/255.0f alpha: 1.0f]
-#define yellowFlag [UIColor colorWithRed: 255.0f/255.0f green: 253.0f/255.0f blue: 103.0f/255.0f alpha: 1.0f]
+#define colorForHiddenLighterTone [UIColor colorWithRed: 102.0f/255.0f green: 99.0f/255.0f blue: 113.0f/255.0f alpha: 1.0f]
+#define colorForHiddenDarkerTone [UIColor colorWithRed: 89.0f/255.0f green: 86.0f/255.0f blue: 101.0f/255.0f alpha: 1.0f]
+#define colorForRevealedLighterTone [UIColor colorWithRed: 38.0f/255.0f green: 38.0f/255.0f blue: 49.0f/255.0f alpha: 1.0f]
+#define colorForRevealedDarkerTone [UIColor colorWithRed: 34.0f/255.0f green: 34.0f/255.0f blue: 45.0f/255.0f alpha: 1.0f]
+#define colorForYellowFlag [UIColor colorWithRed: 255.0f/255.0f green: 253.0f/255.0f blue: 103.0f/255.0f alpha: 1.0f]
 
 #pragma mark - Number Colors
-#define colorForNumberOne
-#define colorForNumberTwo
-#define colorForNumberThree
-#define colorForNumberFour
-#define colorForNumberFive
-#define colorForNumberSix
-#define colorForNumberSeven
-#define colorForNumberEight
+#define colorForNumberOne [UIColor colorWithRed: 103.0f/255.0f green: 175.0f/255.0f blue: 255.0f/255.0f alpha: 1.0f]
+#define colorForNumberTwo [UIColor colorWithRed: 103.0f/255.0f green: 255.0f/255.0f blue: 121.0f/255.0f alpha: 1.0f]
+#define colorForNumberThree [UIColor colorWithRed: 255.0f/255.0f green: 103.0f/255.0f blue: 103.0f/255.0f alpha: 1.0f]
+#define colorForNumberFour [UIColor colorWithRed: 103.0f/255.0f green: 255.0f/255.0f blue: 250.0f/255.0f alpha: 1.0f]
+#define colorForNumberFive [UIColor colorWithRed: 255.0f/255.0f green: 167.0f/255.0f blue: 103.0f/255.0f alpha: 1.0f]
+#define colorForNumberSix [UIColor colorWithRed: 255.0f/255.0f green: 253.0f/255.0f blue: 103.0f/255.0f alpha: 1.0f]
+#define colorForNumberSeven [UIColor colorWithRed: 255.0f/255.0f green: 103.0f/255.0f blue: 228.0f/255.0f alpha: 1.0f]
+#define colorForNumberEight [UIColor colorWithRed: 175.0f/255.0f green: 103.0f/255.0f blue: 255.0f/255.0f alpha: 1.0f]
 #pragma mark -
 
 @interface TileView()
@@ -32,6 +32,7 @@
 @property (nonatomic, weak) UILongPressGestureRecognizer *longPressGestureRecongnizer;
 
 @property (nonatomic, weak) UIImageView *flagImage;
+@property (nonatomic, weak) UILabel *adjacentCellsLabel;
 
 @property BOOL isDarkTone;
 @property BOOL isFlagged;
@@ -70,6 +71,10 @@
     UIImageView *flagImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed: @"flag"]];
     [flagImage setFrame: CGRectMake(0, 0, 64, 64)];
     
+    // Initialize the label
+    UILabel *adjacentCellsLabel = [[UILabel alloc] initWithFrame: [self bounds]];
+    [adjacentCellsLabel setTextAlignment: NSTextAlignmentCenter];
+    
     // Add the objets to the view
     [self addGestureRecognizer: tapGestureRecognizer];
     [self addGestureRecognizer: longPressGestureRecongnizer];
@@ -78,17 +83,18 @@
     [self setTapGestureRecognizer: tapGestureRecognizer];
     [self setLongPressGestureRecongnizer: longPressGestureRecongnizer];
     [self setFlagImage: flagImage];
+    [self setAdjacentCellsLabel: adjacentCellsLabel];
 }
 
 - (void) tileTouched
 {
-    if ([self isDarkTone]) [self setBackgroundColor: revealedDarkerTone];
-    else [self setBackgroundColor: revealedLighterTone];
+    if ([self isDarkTone]) [self setBackgroundColor: colorForRevealedDarkerTone];
+    else [self setBackgroundColor: colorForRevealedLighterTone];
 }
 
 - (void) tileTouchedAndHeld
 {
-    [self setBackgroundColor: yellowFlag];
+    [self setBackgroundColor: colorForYellowFlag];
     //[self addSubview: flagImage];
     //[self.tapGestureRecognizer setEnabled: NO];
     [self setIsFlagged: YES];
@@ -96,8 +102,8 @@
 
 - (void) setDarkerTone: (BOOL) isDarkerTone
 {
-    if (isDarkerTone) [self setBackgroundColor: hiddenDarkerTone];
-    else [self setBackgroundColor: hiddenLighterTone];
+    if (isDarkerTone) [self setBackgroundColor: colorForHiddenDarkerTone];
+    else [self setBackgroundColor: colorForHiddenLighterTone];
     
     [self setIsDarkTone: isDarkerTone];
 }

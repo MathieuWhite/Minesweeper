@@ -10,6 +10,8 @@
 
 @interface TileView : UIView
 
+@property (nonatomic) NSInteger adjacentCells;
+
 - (void) setDarkerTone: (BOOL) isDarkerTone;
 
 @end
