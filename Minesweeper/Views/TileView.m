@@ -8,12 +8,22 @@
 
 #import "TileView.h"
 
-#pragma mark Colors
+#pragma mark Tile Colors
 #define hiddenLighterTone [UIColor colorWithRed: 102.0f/255.0f green: 99.0f/255.0f blue: 113.0f/255.0f alpha: 1.0f]
 #define hiddenDarkerTone [UIColor colorWithRed: 89.0f/255.0f green: 86.0f/255.0f blue: 101.0f/255.0f alpha: 1.0f]
 #define revealedLighterTone [UIColor colorWithRed: 38.0f/255.0f green: 38.0f/255.0f blue: 49.0f/255.0f alpha: 1.0f]
 #define revealedDarkerTone [UIColor colorWithRed: 34.0f/255.0f green: 34.0f/255.0f blue: 45.0f/255.0f alpha: 1.0f]
 #define yellowFlag [UIColor colorWithRed: 255.0f/255.0f green: 253.0f/255.0f blue: 103.0f/255.0f alpha: 1.0f]
+
+#pragma mark - Number Colors
+#define colorForNumberOne
+#define colorForNumberTwo
+#define colorForNumberThree
+#define colorForNumberFour
+#define colorForNumberFive
+#define colorForNumberSix
+#define colorForNumberSeven
+#define colorForNumberEight
 #pragma mark -
 
 @interface TileView()
@@ -80,7 +90,7 @@
 {
     [self setBackgroundColor: yellowFlag];
     //[self addSubview: flagImage];
-    
+    //[self.tapGestureRecognizer setEnabled: NO];
     [self setIsFlagged: YES];
 }
 

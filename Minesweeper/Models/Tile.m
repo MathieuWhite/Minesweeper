@@ -10,4 +10,19 @@
 
 @implementation Tile
 
+- (id) init
+{
+    self = [super init];
+    
+    if (self)
+    {
+        [self setIsMine: NO];
+        [self setIsRevealed: NO];
+        [self setIsFlagged: NO];
+        [self setAdjacentMines: 0];
+    }
+    
+    return self;
+}
+
 @end

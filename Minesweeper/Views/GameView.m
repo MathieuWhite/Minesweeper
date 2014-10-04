@@ -40,28 +40,29 @@
     // Set the background color
     [self setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
+    // Create the minefield view
+    // Frame will depend on difficulty - to implement later..
+    UIView *mineFieldView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 576, 576)];
+    
     // Initialize the scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: [self bounds]];
-    [scrollView setContentSize: CGSizeMake(576, 576)];
-    [scrollView setMinimumZoomScale: 0.5f];
+    [scrollView setContentSize: mineFieldView.frame.size];
+    [scrollView setMinimumZoomScale: (scrollView.frame.size.width / mineFieldView.frame.size.width)];
     [scrollView setMaximumZoomScale: 1];
     [scrollView setZoomScale: 1];
     [scrollView setShowsHorizontalScrollIndicator: NO];
     [scrollView setShowsVerticalScrollIndicator: NO];
     [scrollView setDelegate: self];
     
-    // Create the minefield view
-    UIView *mineFieldView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 576, 576)];
-    
     // Create the CardViews
     for (NSUInteger row = 0; row < 9; row++)
     {
         for (NSUInteger col = 0; col < 9; col++)
         {
-            CGFloat x = (row * 64);
-            CGFloat y = (col * 64);
+            CGFloat offsetX = (row * 64);
+            CGFloat offsetY = (col * 64);
             
-            TileView *tileView = [[TileView alloc] initWithFrame: CGRectMake(x, y, 64, 64)];
+            TileView *tileView = [[TileView alloc] initWithFrame: CGRectMake(offsetX, offsetY, 64, 64)];
             
             if ((row + col) % 2 == 0)
                 [tileView setDarkerTone: YES];
@@ -94,12 +95,18 @@
 - (void) scrollViewDidZoom: (UIScrollView *) scrollView
 {
     NSLog(@"scrollViewDidZoom");
+    /*
+    CGFloat offsetX = MAX((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0);
+    CGFloat offsetY = MAX((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0);
     
+    [self.mineFieldView setCenter: CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
+                                               scrollView.contentSize.height * 0.5 + offsetY)];
+    */
 }
 
 - (void) scrollViewDidEndZooming: (UIScrollView *) scrollView withView: (UIView *) view atScale: (CGFloat) scale
 {
-     NSLog(@"viewForZoomingInScrollView");
+    NSLog(@"viewForZoomingInScrollView");
     if ([scrollView zoomScale] >= 0.75f)
     {
         [UIView transitionWithView: scrollView

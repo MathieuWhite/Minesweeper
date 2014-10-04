@@ -10,4 +10,11 @@
 
 @interface Tile : NSObject
 
+@property (nonatomic) BOOL isMine;
+@property (nonatomic) BOOL isRevealed;
+@property (nonatomic) BOOL isFlagged;
+@property (nonatomic) NSInteger adjacentMines;
+
+- (id) init;
+
 @end
