@@ -76,10 +76,10 @@
 			children = (
 				4E063AAC19DDC63000693758 /* GameView.h */,
 				4E063AAD19DDC63000693758 /* GameView.m */,
-				4E063AB019DDC69200693758 /* TileView.h */,
-				4E063AB119DDC69200693758 /* TileView.m */,
 				4E0E7A0E19E00D6500010866 /* MinefieldView.h */,
 				4E0E7A0F19E00D6500010866 /* MinefieldView.m */,
+				4E063AB019DDC69200693758 /* TileView.h */,
+				4E063AB119DDC69200693758 /* TileView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";

@@ -56,9 +56,6 @@
 // Method to reset the minefield
 - (void) resetMinefield
 {
-    NSUInteger tiles = [self rows] * [self columns]; // Tiles in minefield
-    NSUInteger mines = [self mines]; // Number of mines to place randomly
-    
     [self setRevealedTiles: 0]; // Number of revealed tiles
     [self setDidHitMine: NO];
     
@@ -71,18 +68,15 @@
             [tile setIsRevealed: NO];
             [tile setIsFlagged: NO];
             [tile setIsMine: NO];
-            
-            double probability = (double) mines / (double) tiles;
-            double random = drand48();
-            
-            if (probability > random)
-            {
-                [tile setIsMine: YES];
-                mines--;
-            }
-            
-            tiles--;
         }
+    }
+    
+    // Set the mines in random tiles
+    for (NSUInteger index = 0; index < [self mines]; index++)
+    {
+        NSUInteger randomRow = arc4random() % [self rows];
+        NSUInteger randomColumn = arc4random() % [self columns];
+        [[self tileAtRow: randomRow column: randomColumn] setIsMine: YES];
     }
     
     // Count adjacent mines for the tiles
@@ -90,7 +84,8 @@
     {
         for (NSUInteger columnIndex = 0; columnIndex < [self columns]; columnIndex++)
         {
-            NSUInteger adjacentMines;
+            NSUInteger adjacentMines = 0;
+        
             Tile *tile = [self tileAtRow: rowIndex column: columnIndex];
             
             // Checks adjacent tiles
@@ -106,9 +101,9 @@
                     if (adjacentRow < 0 || adjacentRow >= [self rows] ||
                         adjacentColumn < 0 || adjacentColumn >= [self columns]) continue;
                     
-                    Tile *adjacent = [self tileAtRow: rowIndex + row column: columnIndex + column];
+                    Tile *adjacentTile = [self tileAtRow: adjacentRow column: adjacentColumn];
                     
-                    if ([adjacent isMine]) adjacentMines++;
+                    if ([adjacentTile isMine]) adjacentMines++;
                 }
             }
             [tile setAdjacentMines: adjacentMines];
@@ -116,8 +111,8 @@
     }
 }
 
-// Method that returns the number of hidden tiles in the minefield
-- (NSUInteger) hiddenTiles
+// Method that returns the number of unmined hidden tiles in the minefield
+- (NSUInteger) safeTiles
 {
     return [self rows] * [self columns] - [self mines] - [self revealedTiles];
 }

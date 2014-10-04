@@ -10,4 +10,6 @@
 
 @interface MinefieldView : UIView
 
+- (instancetype) initWithDifficulty: (NSString *) difficulty;
+
 @end

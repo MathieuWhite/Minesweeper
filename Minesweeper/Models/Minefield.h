@@ -21,7 +21,7 @@
 
 - (NSUInteger) rows;
 - (NSUInteger) columns;
-- (NSUInteger) hiddenTiles;
+- (NSUInteger) safeTiles;
 - (NSInteger) revealTileAtRow: (NSUInteger) row column: (NSUInteger) column;
 - (BOOL) autoRevealTileAtRow: (NSUInteger) row column: (NSUInteger) column;
 
