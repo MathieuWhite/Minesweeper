@@ -7,7 +7,6 @@
 //
 
 #import "Minefield.h"
-#import "Tile.h"
 
 @implementation Minefield
 

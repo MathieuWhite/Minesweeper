@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class Tile;
+#import "Tile.h"
 
 @interface Minefield : NSObject
 
