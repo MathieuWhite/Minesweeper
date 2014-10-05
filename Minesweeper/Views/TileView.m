@@ -84,7 +84,7 @@
     // Add the objets to the view
     [self addGestureRecognizer: tapGestureRecognizer];
     [self addGestureRecognizer: longPressGestureRecongnizer];
-    //[self addSubview: flagImage];
+    [self addSubview: flagImage];
     [self addSubview: mineImage];
     [self addSubview: adjacentMinesLabel];
     
@@ -193,7 +193,6 @@
             [self.tapGestureRecognizer setEnabled: NO];
             [self setBackgroundColor: colorForYellowFlag];
             [self.flagImage setImage: [UIImage imageNamed: @"flag"]];
-            [self addSubview: [self flagImage]];
             [self setIsFlagged: YES];
             
             // Check if the delegate is set and it responds to the selector
@@ -207,7 +206,7 @@
             if ([self isDarkTone]) [self setDarkerTone: YES];
             else [self setDarkerTone: NO];
             
-            [self.flagImage removeFromSuperview];
+            [self.flagImage setImage: nil];
             [self setIsFlagged: NO];
             
             // Check if the delegate is set and it responds to the selector
