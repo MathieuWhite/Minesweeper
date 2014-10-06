@@ -37,7 +37,6 @@
 @property (nonatomic, weak) UILabel *adjacentMinesLabel;
 
 @property (nonatomic) BOOL isDarkTone;
-@property (nonatomic) BOOL isFlagged;
 @property (nonatomic) BOOL didHitMine;
 
 @end
@@ -70,6 +69,9 @@
     UILongPressGestureRecognizer *longPressGestureRecongnizer = [[UILongPressGestureRecognizer alloc]
                                                                  initWithTarget: self action: @selector(touchedAndHeldTile:)];
     
+    // Initialize the array that will hold the adjacent tiles
+    //NSMutableArray *adjacentTiles = [[NSMutableArray alloc] initWithCapacity: 8];
+    
     // Initialize the flag image
     UIImageView *flagImage = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 64, 64)];
     
@@ -94,11 +96,23 @@
     [self setFlagImage: flagImage];
     [self setMineImage: mineImage];
     [self setAdjacentMinesLabel: adjacentMinesLabel];
+    //[self setAdjacentTiles: adjacentTiles];
     
+    [self setIsRevealed: NO];
     [self setIsFlagged: NO];
     [self setIsMine: NO];
     [self setDidHitMine: NO];
 }
+
+- (void) setDarkerTone: (BOOL) isDarkerTone
+{
+    if (isDarkerTone) [self setBackgroundColor: colorForHiddenDarkerTone];
+    else [self setBackgroundColor: colorForHiddenLighterTone];
+    
+    [self setIsDarkTone: isDarkerTone];
+}
+
+# pragma mark - Gesture Methods
 
 - (void) touchedTile
 {
@@ -107,23 +121,31 @@
 
 - (void) revealTile
 {
+    if ([self adjacentMines] == 0)
+    {
+        [self revealTileViewWithZero];
+        
+        // Check if the delegate is set and it responds to the selector
+        if ([self.delegate respondsToSelector: @selector(revealedTileIsZeroAtRow:column:)])
+            [self.delegate revealedTileIsZeroAtRow: [self rowIndex] column: [self columnIndex]];
+        
+        return;
+    }
+    
+    [self setIsRevealed: YES];
+    
     [self disableGestureRecognizers];
     
     if ([self isDarkTone]) [self setBackgroundColor: colorForRevealedDarkerTone];
     else [self setBackgroundColor: colorForRevealedLighterTone];
     
-    if ([self adjacentMines] == 0)
-    {
-        return;
-    }
-    
-    if ([self adjacentMines] == 9) // should be -1
+    if ([self adjacentMines] == -1)
     {
         [self setDidHitMine: YES];
         
         [self setBackgroundColor: colorForHitMine];
 
-        [self.mineImage setImage: [UIImage imageNamed:@"mine"]];
+        [self.mineImage setImage: [UIImage imageNamed: @"mine"]];
         
         // Check if the delegate is set and it responds to the selector
         if ([self.delegate respondsToSelector: @selector(revealedTileIsMine:)])
@@ -142,8 +164,17 @@
     else if ([self adjacentMines] == 8) [self.adjacentMinesLabel setTextColor: colorForNumberEight];
     else [self.adjacentMinesLabel setTextColor: [UIColor whiteColor]];
     
-    NSLog(@"%lu", (long)[self adjacentMines]);
-    [self.adjacentMinesLabel setText: [NSString stringWithFormat: @"%lu", (long)[self adjacentMines]]];
+    NSLog(@"%ld", (long)[self adjacentMines]);
+    [self.adjacentMinesLabel setText: [NSString stringWithFormat: @"%ld", (long)[self adjacentMines]]];
+}
+
+- (void) revealTileViewWithZero
+{
+    //[self setIsRevealed: YES];
+    [self disableGestureRecognizers];
+
+    if ([self isDarkTone]) [self setBackgroundColor: colorForRevealedDarkerTone];
+    else [self setBackgroundColor: colorForRevealedLighterTone];
 }
 
 - (void) revealTileViewMineAfterMineHit
@@ -214,14 +245,6 @@
                 [self.delegate didUnFlagTile: self];
         }
     }
-}
-
-- (void) setDarkerTone: (BOOL) isDarkerTone
-{
-    if (isDarkerTone) [self setBackgroundColor: colorForHiddenDarkerTone];
-    else [self setBackgroundColor: colorForHiddenLighterTone];
-    
-    [self setIsDarkTone: isDarkerTone];
 }
 
 @end

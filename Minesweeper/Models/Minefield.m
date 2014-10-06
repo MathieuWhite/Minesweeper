@@ -47,7 +47,7 @@
     return [[self.tiles objectAtIndex: 0] count];
 }
 
-// Method used to count adjacent mines
+// Returns the tile at row and column
 - (Tile *) tileAtRow: (NSUInteger) row column: (NSUInteger) column
 {
     return [[self.tiles objectAtIndex: row] objectAtIndex: column];
@@ -74,8 +74,15 @@
     // Set the mines in random tiles
     for (NSUInteger index = 0; index < [self mines]; index++)
     {
-        NSUInteger randomRow = arc4random() % [self rows];
-        NSUInteger randomColumn = arc4random() % [self columns];
+        NSUInteger randomRow = arc4random_uniform((uint32_t) [self rows]);
+        NSUInteger randomColumn = arc4random_uniform((uint32_t) [self columns]);
+        
+        while ([[self tileAtRow: randomRow column: randomColumn] isMine])
+        {
+            randomRow = arc4random_uniform((uint32_t) [self rows]);
+            randomColumn = arc4random_uniform((uint32_t) [self columns]);
+        }
+        
         [[self tileAtRow: randomRow column: randomColumn] setIsMine: YES];
     }
     
@@ -119,7 +126,7 @@
 
 // Returns the value of the tile (from -1 to 8)
 - (NSInteger) revealTileAtRow: (NSUInteger) row column: (NSUInteger) column
-{    
+{
     Tile *tile = [self tileAtRow: row column: column];
     
     [tile setIsRevealed: YES];
@@ -128,67 +135,10 @@
     if ([tile isMine])
     {
         [self setDidHitMine: YES];
-        return 9; // should be -1
+        return -1;
     }
     
-    NSUInteger adjacentMines = [tile adjacentMines];
-    
-    if (adjacentMines == 0)
-    {
-        BOOL hasChanged;
-        
-        do
-        {
-            hasChanged = NO;
-            for (NSUInteger rowIndex = 0; rowIndex < [self rows]; rowIndex++)
-            {
-                for (NSUInteger columnIndex = 0; columnIndex < [self columns]; columnIndex++)
-                {
-                    if ([self autoRevealTileAtRow: rowIndex column: columnIndex])
-                        hasChanged = YES;
-                }
-            }
-        } while (hasChanged);
-    }
-    
-    return adjacentMines;
+    return [tile adjacentMines];
 }
-
-// Method to reveal adjacent cells that don't have adjacent mines
-- (BOOL) autoRevealTileAtRow: (NSUInteger) row column: (NSUInteger) column
-{
-    Tile *tile = [self tileAtRow: row column: column];
-    
-    // Check if the tile is hidden and if it doesn't contain a mine
-    if (![tile isRevealed] && ![tile isMine])
-    {
-        // Check the adjacent tiles
-        for (NSInteger rowIndex = -1; rowIndex <= 1; rowIndex++)
-        {
-            for (NSInteger columnIndex = -1; columnIndex <= 1; columnIndex++)
-            {
-                if (rowIndex == 0 && columnIndex == 0) continue;
-                
-                NSInteger adjacentRow = rowIndex + row;
-                NSInteger adjacentColumn = columnIndex + column;
-                
-                if (adjacentRow < 0 || adjacentRow >= [self rows] ||
-                    adjacentColumn < 0 || adjacentColumn >= [self columns]) continue;
-                
-                Tile *adjacentTile = [self tileAtRow: adjacentRow column: adjacentColumn];
-                
-                if ([adjacentTile isRevealed] && adjacentTile.adjacentMines == 0)
-                {
-                    [tile setIsRevealed: YES];
-                    self.revealedTiles++;
-                    return YES;
-                }
-            }
-        }
-    }
-    
-    return NO;
-}
-
 
 @end

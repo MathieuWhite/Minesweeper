@@ -80,10 +80,12 @@
     
     // Initialize the TileViews and store them in the array
     [self initTileViews];
+    
 }
 
 - (void) initTileViews
 {
+    // Places the tile views on the minefield
     for (NSUInteger rowIndex = 0; rowIndex < [self.minefield rows]; rowIndex++)
     {
         NSMutableArray *row = [[NSMutableArray alloc] initWithCapacity: [self.minefield columns]];
@@ -96,13 +98,15 @@
             
             TileView *tileView = [[TileView alloc] initWithFrame: CGRectMake(offsetX, offsetY, 64, 64)];
             [tileView setDelegate: self];
+            [tileView setRowIndex: rowIndex];
+            [tileView setColumnIndex: columnIndex];
             
             if ((columnIndex + rowIndex) % 2 == 0)
                 [tileView setDarkerTone: YES];
             else [tileView setDarkerTone: NO];
             
             [tileView setAdjacentMines: [self.minefield revealTileAtRow: rowIndex column: columnIndex]];
-            if ([tileView adjacentMines] == 9) // should be -1
+            if ([tileView adjacentMines] == -1)
             {
                 [tileView setIsMine: YES];
                 [self.minedTileViews addObject: tileView];
@@ -115,18 +119,10 @@
     }
 }
 
-// Stores adjacent tileviews of each tileview into an array
-- (void) storeTileViewAdjacentTiles
+// Returns the TileView at row column
+- (TileView *) tileViewAtRow: (NSInteger) row column: (NSInteger) column
 {
-    for (NSUInteger rowIndex = 0; rowIndex < [self.tileViews count]; rowIndex++)
-    {
-        for (NSUInteger columnIndex = 0; columnIndex < [[self.tileViews objectAtIndex: rowIndex] count]; columnIndex++)
-        {
-            //TileView *tileView = [self tileViewAtRow: rowIndex column: columnIndex];
-            
-        }
-    }
-    
+    return [[self.tileViews objectAtIndex: row] objectAtIndex: column];
 }
 
 #pragma mark - TileViewDelegate Methods
@@ -141,6 +137,41 @@
         [flaggedTileView revealTileViewMineAfterMineHit];
     
     [self setUserInteractionEnabled: NO];
+}
+
+- (void) revealedTileIsZeroAtRow: (NSInteger) rowIndex column: (NSInteger) columnIndex
+{
+    NSLog(@"Revealed zero at row: %ld, col: %ld", (unsigned long) rowIndex, (unsigned long) columnIndex);
+    
+    if (rowIndex < 0 || columnIndex < 0 || rowIndex >= [self.minefield rows] || columnIndex >= [self.minefield columns])
+        return;
+    
+    TileView *tileView = [self tileViewAtRow: rowIndex column: columnIndex];
+    NSLog(@"Count: %ld", (long)[tileView adjacentMines]);
+    
+    if ([tileView isRevealed] || [tileView isMine])
+        return;
+    
+    [tileView setIsRevealed: YES];
+    [tileView revealTileViewWithZero];
+    NSLog(@"row: %ld", [tileView rowIndex]);
+    NSLog(@"col: %ld", [tileView columnIndex]);
+    
+    if ([tileView adjacentMines] == 0)
+    {
+        NSLog(@"Adjacent Mines == 0");
+        for (NSInteger row = rowIndex - 1; row <= rowIndex + 1; row++)
+        {
+            for (NSInteger column = columnIndex - 1; column <= columnIndex + 1; column++)
+            {
+                [self revealedTileIsZeroAtRow: row column: column];
+            }
+        }
+    }
+    else if ([tileView adjacentMines] > 0)
+    {
+        [tileView revealTile];
+    }
 }
 
 - (void) didFlagTile: (TileView *) tileView

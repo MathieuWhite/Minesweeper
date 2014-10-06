@@ -40,8 +40,8 @@
     // Set the background color
     [self setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
+    // Initialize the Minefield
     MinefieldView *minefieldView = [[MinefieldView alloc] initWithDifficulty: @"easy"];
-    //[minefieldView storeTileViewAdjacentTiles];
     
     // Initialize the scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: [self bounds]];
@@ -52,6 +52,15 @@
     [scrollView setShowsHorizontalScrollIndicator: NO];
     [scrollView setShowsVerticalScrollIndicator: NO];
     [scrollView setDelegate: self];
+    
+    // testing label
+    UILabel *testLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, 10, 300, 44)];
+    [testLabel setText: @"Testing label"];
+    [testLabel setTextColor: [UIColor whiteColor]];
+    [testLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 22.0f]];
+    [testLabel setTextAlignment: NSTextAlignmentCenter];
+    [self addSubview: testLabel];
+    
     
     // Add the components to the scroll view
     [scrollView addSubview: minefieldView];
@@ -81,7 +90,7 @@
 - (void) scrollViewDidEndZooming: (UIScrollView *) scrollView withView: (UIView *) view atScale: (CGFloat) scale
 {
     NSLog(@"viewForZoomingInScrollView");
-    if ([scrollView zoomScale] >= 0.75f)
+    if ([scrollView zoomScale] >= [scrollView minimumZoomScale] * 3/2)
     {
         [UIView transitionWithView: scrollView
                           duration: 0.4f
@@ -99,7 +108,7 @@
                           duration: 0.4f
                            options: UIViewAnimationOptionCurveEaseInOut
                         animations: ^{
-                            [scrollView setZoomScale: 0.5f];
+                            [scrollView setZoomScale: [scrollView minimumZoomScale]];
                         }
                         completion: ^(BOOL finished) {
                             [self.minefieldView setUserInteractionEnabled: NO];
@@ -113,6 +122,11 @@
     if (![scrollView isDragging]) return;
     
     NSLog(@"scrollViewDidScroll");
+}
+
+- (void) scrollViewWillEndDragging: (UIScrollView *) scrollView withVelocity: (CGPoint) velocity targetContentOffset: (inout CGPoint *) targetContentOffset
+{
+    NSLog(@"scrollViewWillEndDragging");
 }
 
 - (UIView *) viewForZoomingInScrollView: (UIScrollView *) scrollView

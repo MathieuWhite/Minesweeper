@@ -15,6 +15,4 @@
 
 - (instancetype) initWithDifficulty: (NSString *) difficulty;
 
-- (void) storeTileViewAdjacentTiles;
-
 @end

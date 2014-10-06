@@ -23,7 +23,6 @@
 - (NSUInteger) columns;
 - (NSUInteger) safeTiles;
 - (NSInteger) revealTileAtRow: (NSUInteger) row column: (NSUInteger) column;
-- (BOOL) autoRevealTileAtRow: (NSUInteger) row column: (NSUInteger) column;
 
 - (void) resetMinefield;
 
