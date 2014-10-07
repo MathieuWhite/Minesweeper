@@ -13,6 +13,8 @@
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 
+@property (nonatomic, weak) UIButton *theNewGameButton;
+
 @property (nonatomic, weak) MinefieldView *minefieldView;
 
 @end
@@ -41,7 +43,7 @@
     [self setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
     // Initialize the Minefield
-    MinefieldView *minefieldView = [[MinefieldView alloc] initWithDifficulty: @"easy"];
+    MinefieldView *minefieldView = [[MinefieldView alloc] initWithDifficulty: MinefieldDifficultyEasy];
     
     // Initialize the scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: [self bounds]];
@@ -62,6 +64,14 @@
     [testLabel setTextAlignment: NSTextAlignmentCenter];
     [self addSubview: testLabel];
     
+    // test button
+    UIButton *theNewGameButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [theNewGameButton setFrame: CGRectMake(self.frame.size.width - 90, 10, 80, 44)];
+    [theNewGameButton setTitle: @"New Game" forState: UIControlStateNormal];
+    [theNewGameButton setTitleColor: [UIColor whiteColor] forState: UIControlStateNormal];
+    [theNewGameButton.titleLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 14.0f]];
+    [theNewGameButton addTarget: self action: @selector(userWantsNewGame) forControlEvents: UIControlEventTouchUpInside];
+    [self addSubview: theNewGameButton];
     
     // Add the components to the scroll view
     [scrollView addSubview: minefieldView];
@@ -72,6 +82,12 @@
     // Set each component to a property
     [self setScrollView: scrollView];
     [self setMinefieldView: minefieldView];
+    [self setTheNewGameButton: theNewGameButton];
+}
+
+- (void) userWantsNewGame
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidFinishNewGameNotification object: nil];
 }
 
 #pragma mark - UIScrollViewDelegate Methods
@@ -102,6 +118,7 @@
                         }
                         completion: ^(BOOL finished) {
                             [self.minefieldView setUserInteractionEnabled: YES];
+                            [self bringSubviewToFront: scrollView];
                         }];
     }
     else
@@ -115,6 +132,7 @@
                         }
                         completion: ^(BOOL finished) {
                             [self.minefieldView setUserInteractionEnabled: NO];
+                            [self bringSubviewToFront: [self theNewGameButton]];
                         }];
     }
         
@@ -123,6 +141,8 @@
 - (void) scrollViewDidScroll: (UIScrollView *) scrollView
 {
     if (![scrollView isDragging]) return;
+    
+    [self bringSubviewToFront: scrollView];
     
     NSLog(@"scrollViewDidScroll");
 }
@@ -138,6 +158,7 @@
                            options: UIViewAnimationOptionCurveEaseInOut
                         animations: ^{
                             targetContentOffset->y = 0.0;
+                            [self bringSubviewToFront: scrollView];
                         }
                         completion: NULL];
     }
@@ -148,6 +169,7 @@
                            options: UIViewAnimationOptionCurveEaseInOut
                         animations: ^{
                             targetContentOffset->y = -64.0;
+                            [self bringSubviewToFront: [self theNewGameButton]];
                         }
                         completion: NULL];
     }

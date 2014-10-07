@@ -19,19 +19,19 @@
 
 @implementation MinefieldView
 
-- (instancetype) initWithDifficulty: (NSString *) difficulty
+- (instancetype) initWithDifficulty: (MinefieldDifficulty) difficulty
 {
     self = [super init];
     
     if (self)
     {
-        if ([difficulty isEqualToString: @"easy"])
+        if (difficulty == MinefieldDifficultyEasy)
         {
             Minefield *minefield = [[Minefield alloc] initWithMines: 10 rows: 9 columns: 9];
             [self setMinefield: minefield];
             [self initMinefieldView];
         }
-        else if ([difficulty isEqualToString: @"medium"])
+        else if (difficulty == MinefieldDifficultyMedium)
         {
             Minefield *minefield = [[Minefield alloc] initWithMines: 16 rows: 13 columns: 13];
             [self setMinefield: minefield];
@@ -136,7 +136,7 @@
     for (TileView *flaggedTileView in [self flaggedTileViews])
         [flaggedTileView revealTileViewMineAfterMineHit];
     
-    [self setUserInteractionEnabled: NO];
+    [self setUserInteractionEnabled: NO];    
 }
 
 - (void) revealedTileIsZeroAtRow: (NSInteger) rowIndex column: (NSInteger) columnIndex

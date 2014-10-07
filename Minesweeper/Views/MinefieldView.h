@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "TileView.h"
 
+typedef NS_ENUM(NSInteger, MinefieldDifficulty)
+{
+    MinefieldDifficultyEasy,
+    MinefieldDifficultyMedium,
+    MinefieldDifficultyHard
+};
+
 @interface MinefieldView : UIView
 
 @property (nonatomic, strong) NSMutableArray *tileViews;
 
-- (instancetype) initWithDifficulty: (NSString *) difficulty;
+- (instancetype) initWithDifficulty: (MinefieldDifficulty) difficulty;
 
 @end

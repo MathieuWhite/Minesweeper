@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString * const kGameViewDidFinishNewGameNotification = @"kGameViewDidFinishNewGameNotification";
+
 @interface GameView : UIView
 
 @property (nonatomic, strong) NSString *difficulty;
