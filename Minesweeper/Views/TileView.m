@@ -36,7 +36,7 @@
 @property (nonatomic, weak) UIImageView *mineImage;
 @property (nonatomic, weak) UILabel *adjacentMinesLabel;
 
-@property (nonatomic) BOOL isDarkTone;
+@property (nonatomic, getter = isDarkTone) BOOL darkTone;
 @property (nonatomic) BOOL didHitMine;
 
 @end
@@ -98,18 +98,18 @@
     [self setAdjacentMinesLabel: adjacentMinesLabel];
     //[self setAdjacentTiles: adjacentTiles];
     
-    [self setIsRevealed: NO];
-    [self setIsFlagged: NO];
-    [self setIsMine: NO];
+    [self setRevealed: NO];
+    [self setFlagged: NO];
+    [self setMine: NO];
     [self setDidHitMine: NO];
 }
 
-- (void) setDarkerTone: (BOOL) isDarkerTone
+- (void) setDarkerTone: (BOOL) darkerTone
 {
-    if (isDarkerTone) [self setBackgroundColor: colorForHiddenDarkerTone];
+    if (darkerTone) [self setBackgroundColor: colorForHiddenDarkerTone];
     else [self setBackgroundColor: colorForHiddenLighterTone];
     
-    [self setIsDarkTone: isDarkerTone];
+    [self setDarkTone: darkerTone];
 }
 
 # pragma mark - Gesture Methods
@@ -132,7 +132,7 @@
         return;
     }
     
-    [self setIsRevealed: YES];
+    [self setRevealed: YES];
     
     [self disableGestureRecognizers];
     
@@ -224,7 +224,7 @@
             [self.tapGestureRecognizer setEnabled: NO];
             [self setBackgroundColor: colorForYellowFlag];
             [self.flagImage setImage: [UIImage imageNamed: @"flag"]];
-            [self setIsFlagged: YES];
+            [self setFlagged: YES];
             
             // Check if the delegate is set and it responds to the selector
             if ([self.delegate respondsToSelector: @selector(didFlagTile:)])
@@ -238,7 +238,7 @@
             else [self setDarkerTone: NO];
             
             [self.flagImage setImage: nil];
-            [self setIsFlagged: NO];
+            [self setFlagged: NO];
             
             // Check if the delegate is set and it responds to the selector
             if ([self.delegate respondsToSelector: @selector(didUnFlagTile:)])

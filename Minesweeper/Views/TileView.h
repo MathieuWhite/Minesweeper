@@ -28,11 +28,11 @@
 @property (nonatomic) NSUInteger rowIndex;
 @property (nonatomic) NSUInteger columnIndex;
 
-@property (nonatomic) BOOL isMine;
-@property (nonatomic) BOOL isFlagged;
-@property (nonatomic) BOOL isRevealed;
+@property (nonatomic, getter = isMine) BOOL mine;
+@property (nonatomic, getter = isFlagged) BOOL flagged;
+@property (nonatomic, getter = isRevealed) BOOL revealed;
 
-- (void) setDarkerTone: (BOOL) isDarkerTone;
+- (void) setDarkerTone: (BOOL) darkerTone;
 - (void) revealTile;
 - (void) revealTileViewMineAfterMineHit;
 - (void) revealTileViewWithZero;

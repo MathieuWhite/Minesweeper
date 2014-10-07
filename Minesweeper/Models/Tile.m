@@ -16,9 +16,9 @@
     
     if (self)
     {
-        [self setIsMine: NO];
-        [self setIsRevealed: NO];
-        [self setIsFlagged: NO];
+        [self setMine: NO];
+        [self setRevealed: NO];
+        [self setFlagged: NO];
         [self setAdjacentMines: 0];
     }
     

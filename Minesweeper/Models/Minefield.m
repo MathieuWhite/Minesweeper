@@ -65,9 +65,9 @@
         for (NSUInteger columnIndex = 0; columnIndex < [self columns]; columnIndex++)
         {
             Tile *tile = [self tileAtRow: rowIndex column: columnIndex];
-            [tile setIsRevealed: NO];
-            [tile setIsFlagged: NO];
-            [tile setIsMine: NO];
+            [tile setRevealed: NO];
+            [tile setFlagged: NO];
+            [tile setMine: NO];
         }
     }
     
@@ -83,7 +83,7 @@
             randomColumn = arc4random_uniform((uint32_t) [self columns]);
         }
         
-        [[self tileAtRow: randomRow column: randomColumn] setIsMine: YES];
+        [[self tileAtRow: randomRow column: randomColumn] setMine: YES];
     }
     
     // Count adjacent mines for the tiles
@@ -129,7 +129,7 @@
 {
     Tile *tile = [self tileAtRow: row column: column];
     
-    [tile setIsRevealed: YES];
+    [tile setRevealed: YES];
     self.revealedTiles++;
     
     if ([tile isMine])

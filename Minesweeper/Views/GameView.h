@@ -10,4 +10,6 @@
 
 @interface GameView : UIView
 
+@property (nonatomic, strong) NSString *difficulty;
+
 @end

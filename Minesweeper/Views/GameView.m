@@ -49,6 +49,7 @@
     [scrollView setMinimumZoomScale: (scrollView.frame.size.width / minefieldView.frame.size.width)];
     [scrollView setMaximumZoomScale: 1];
     [scrollView setZoomScale: 1];
+    [scrollView setContentInset: UIEdgeInsetsMake(64, 0, 0, 0)];
     [scrollView setShowsHorizontalScrollIndicator: NO];
     [scrollView setShowsVerticalScrollIndicator: NO];
     [scrollView setDelegate: self];
@@ -97,6 +98,7 @@
                            options: UIViewAnimationOptionCurveEaseInOut
                         animations: ^{
                             [scrollView setZoomScale: 1.0f];
+                            [scrollView setContentInset: UIEdgeInsetsMake(64, 0, 0, 0)];
                         }
                         completion: ^(BOOL finished) {
                             [self.minefieldView setUserInteractionEnabled: YES];
@@ -109,6 +111,7 @@
                            options: UIViewAnimationOptionCurveEaseInOut
                         animations: ^{
                             [scrollView setZoomScale: [scrollView minimumZoomScale]];
+                            [scrollView setContentInset: UIEdgeInsetsMake(0, 0, 0, 0)];
                         }
                         completion: ^(BOOL finished) {
                             [self.minefieldView setUserInteractionEnabled: NO];
@@ -127,6 +130,31 @@
 - (void) scrollViewWillEndDragging: (UIScrollView *) scrollView withVelocity: (CGPoint) velocity targetContentOffset: (inout CGPoint *) targetContentOffset
 {
     NSLog(@"scrollViewWillEndDragging");
+    
+    if (targetContentOffset->y >= -32)
+    {
+        [UIView transitionWithView: [self minefieldView]
+                          duration: 0.4f
+                           options: UIViewAnimationOptionCurveEaseInOut
+                        animations: ^{
+                            targetContentOffset->y = 0.0;
+                        }
+                        completion: NULL];
+    }
+    else
+    {
+        [UIView transitionWithView: [self minefieldView]
+                          duration: 0.4f
+                           options: UIViewAnimationOptionCurveEaseInOut
+                        animations: ^{
+                            targetContentOffset->y = -64.0;
+                        }
+                        completion: NULL];
+    }
+    
+    NSLog(@"targetContent y: %f", targetContentOffset->y);
+    
+    NSLog(@"y: %f", scrollView.contentOffset.y);
 }
 
 - (UIView *) viewForZoomingInScrollView: (UIScrollView *) scrollView

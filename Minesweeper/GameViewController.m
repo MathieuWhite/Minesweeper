@@ -1,26 +1,24 @@
 //
-//  ViewController.m
+//  GameViewController.m
 //  Minesweeper
 //
-//  Created by Mathieu White on 2014-09-30.
+//  Created by Mathieu White on 2014-10-06.
 //  Copyright (c) 2014 Mathieu White. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "GameViewController.h"
 #import "GameView.h"
 
-@interface ViewController ()
-
-@property (nonatomic, weak) GameView *gameView;
+@interface GameViewController ()
 
 @end
 
-@implementation ViewController
+@implementation GameViewController
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-        
+    
     // Initialize a Game
     GameView *gameView = [[GameView alloc] initWithFrame: [self.view bounds]];
     

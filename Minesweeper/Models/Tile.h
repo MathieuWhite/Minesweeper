@@ -10,9 +10,9 @@
 
 @interface Tile : NSObject
 
-@property (nonatomic) BOOL isMine;
-@property (nonatomic) BOOL isRevealed;
-@property (nonatomic) BOOL isFlagged;
+@property (nonatomic, getter = isMine) BOOL mine;
+@property (nonatomic, getter = isRevealed) BOOL revealed;
+@property (nonatomic, getter = isFlagged) BOOL flagged;
 @property (nonatomic) NSInteger adjacentMines;
 
 - (id) init;

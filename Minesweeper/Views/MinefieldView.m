@@ -108,7 +108,7 @@
             [tileView setAdjacentMines: [self.minefield revealTileAtRow: rowIndex column: columnIndex]];
             if ([tileView adjacentMines] == -1)
             {
-                [tileView setIsMine: YES];
+                [tileView setMine: YES];
                 [self.minedTileViews addObject: tileView];
             }
             
@@ -152,10 +152,10 @@
     if ([tileView isRevealed] || [tileView isMine])
         return;
     
-    [tileView setIsRevealed: YES];
+    [tileView setRevealed: YES];
     [tileView revealTileViewWithZero];
-    NSLog(@"row: %ld", [tileView rowIndex]);
-    NSLog(@"col: %ld", [tileView columnIndex]);
+    NSLog(@"row: %ld", (unsigned long)[tileView rowIndex]);
+    NSLog(@"col: %ld", (unsigned long)[tileView columnIndex]);
     
     if ([tileView adjacentMines] == 0)
     {
