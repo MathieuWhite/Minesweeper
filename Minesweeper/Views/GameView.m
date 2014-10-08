@@ -7,8 +7,11 @@
 //
 
 #import "GameView.h"
+#import "UIScrollView+ZoomToPoint.h"
 
 @interface GameView() <UIScrollViewDelegate>
+
+@property (nonatomic, weak) UITapGestureRecognizer *doubleTapGestureRecognizer;
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 
@@ -43,6 +46,12 @@
 
 - (void) initGameView
 {
+    // Initialize the tap gesture recognizer
+    UITapGestureRecognizer *doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self
+                                                                                                 action: @selector(doubleTap)];
+    [doubleTapGestureRecognizer setNumberOfTapsRequired: 2];
+    [doubleTapGestureRecognizer setEnabled: NO];
+    
     // Set the background color
     [self setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
@@ -62,7 +71,7 @@
     
     // Remaining Tiles Label
     UILabel *remainingTilesLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, 10, 300, 44)];
-    [remainingTilesLabel setText: [NSString stringWithFormat: @"%ld", [minefieldView remainingTiles]]];
+    [remainingTilesLabel setText: [NSString stringWithFormat: @"%ld", (unsigned long)[minefieldView remainingTiles]]];
     [remainingTilesLabel setTextColor: [UIColor whiteColor]];
     [remainingTilesLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 22.0f]];
     [remainingTilesLabel setTextAlignment: NSTextAlignmentCenter];
@@ -84,6 +93,7 @@
     [theNewGameButton addTarget: self action: @selector(userWantsNewGame) forControlEvents: UIControlEventTouchUpInside];
     
     // Add the components to the scroll view
+    [scrollView addGestureRecognizer: doubleTapGestureRecognizer];
     [scrollView addSubview: minefieldView];
     
     // Add the components to the view
@@ -93,6 +103,7 @@
     [self addSubview: scrollView];
     
     // Set each component to a property
+    [self setDoubleTapGestureRecognizer: doubleTapGestureRecognizer];
     [self setScrollView: scrollView];
     [self setMinefieldView: minefieldView];
     [self setRemainingTilesLabel: remainingTilesLabel];
@@ -143,6 +154,14 @@
                                                   object: nil];
 }
 
+#pragma mark - Gesture Recognizer Method
+
+- (void) doubleTap
+{
+    CGPoint tapLocation = [self.doubleTapGestureRecognizer locationInView: [self scrollView]];
+    [self.scrollView zoomToPoint: tapLocation withScale: [self.scrollView maximumZoomScale] animated: YES];
+}
+
 #pragma mark - UIScrollViewDelegate Methods
 
 - (void) scrollViewDidZoom: (UIScrollView *) scrollView
@@ -172,6 +191,7 @@
                         completion: ^(BOOL finished) {
                             [self.minefieldView setUserInteractionEnabled: YES];
                             [self bringSubviewToFront: scrollView];
+                            [self.doubleTapGestureRecognizer setEnabled: NO];
                         }];
     }
     else
@@ -187,6 +207,7 @@
                             [self.minefieldView setUserInteractionEnabled: NO];
                             [self bringSubviewToFront: [self theNewGameButton]];
                             [self bringSubviewToFront: [self menuButton]];
+                            [self.doubleTapGestureRecognizer setEnabled: YES];
                         }];
     }
         
@@ -262,7 +283,7 @@
 {
     NSLog(@"TILE REVEALED");
     
-    [self.remainingTilesLabel setText: [NSString stringWithFormat: @"%ld", [self.minefieldView remainingTiles]]];
+    [self.remainingTilesLabel setText: [NSString stringWithFormat: @"%ld", (unsigned long)[self.minefieldView remainingTiles]]];
     
     if ([self.minefieldView remainingTiles] == 0)
         [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidFinishUserWinsNotification object: nil];

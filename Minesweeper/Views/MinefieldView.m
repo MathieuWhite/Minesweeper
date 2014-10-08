@@ -133,7 +133,7 @@
 - (void) revealedTile
 {
     [self setRemainingTiles: [self remainingTiles] - 1];
-    NSLog(@"Remaining Tiles: %ld", [self remainingTiles]);
+    NSLog(@"Remaining Tiles: %ld", (unsigned long)[self remainingTiles]);
     
     [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidRevealTileNotification object: nil];
 }
