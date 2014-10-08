@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MenuViewController.h"
 #import "GameViewController.h"
+#import "HowToViewController.h"
 
 @interface MenuViewController ()
 
@@ -72,7 +73,7 @@
     
     // Initialize the how to play button
     UIButton *howToPlayButton = [[UIButton alloc] initWithFrame: CGRectMake(20, 352, 280, 44)];
-    [howToPlayButton setTitle: @"How To Play" forState: UIControlStateNormal];
+    [howToPlayButton setTitle: @"How to Play" forState: UIControlStateNormal];
     [howToPlayButton addTarget: self action: @selector(howToPlaySelected) forControlEvents: UIControlEventTouchUpInside];
     [self styleMenuButton: howToPlayButton];
     
@@ -168,11 +169,13 @@
 
 - (void) howToPlaySelected
 {
-    NSLog(@"How To Play!");
+    NSLog(@"How to Play!");
     
     HowToViewController *howToViewController = [[HowToViewController alloc] init];
+    [howToViewController setModalPresentationStyle: UIModalPresentationFullScreen];
+    [howToViewController setModalTransitionStyle: UIModalTransitionStyleCoverVertical];
     
-    [self.navigationController pushViewController: howToViewController animated: YES];
+    [self presentViewController: howToViewController animated: YES completion: nil];
 }
 
 - (UIImage *) imageWithColor: (UIColor *) color

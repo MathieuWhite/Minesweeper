@@ -74,6 +74,7 @@
     
     // Re create the game view
     GameView *gameView = [[GameView alloc] initWithFrame: [self.view bounds] difficulty: [self difficulty]];
+    
     [self.view addSubview: gameView];
     [self setGameView: gameView];
 }
