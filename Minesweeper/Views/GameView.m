@@ -62,7 +62,7 @@
     
     // Remaining Tiles Label
     UILabel *remainingTilesLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, 10, 300, 44)];
-    [remainingTilesLabel setText: @"Label"];
+    [remainingTilesLabel setText: [NSString stringWithFormat: @"%ld", [minefieldView remainingTiles]]];
     [remainingTilesLabel setTextColor: [UIColor whiteColor]];
     [remainingTilesLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 22.0f]];
     [remainingTilesLabel setTextAlignment: NSTextAlignmentCenter];
@@ -98,6 +98,24 @@
     [self setRemainingTilesLabel: remainingTilesLabel];
     [self setMenuButton: menuButton];
     [self setTheNewGameButton: theNewGameButton];
+    
+    // Notification for when the user hits a mine
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(userHitMineNotification)
+                                                 name: kGameViewDidFinishMineHitNotification
+                                               object: nil];
+    
+    // Notification for when the user reveals a tile
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(userRevealedTileNotification)
+                                                 name: kGameViewDidRevealTileNotification
+                                               object: nil];
+    
+    // Notification for when the user wins
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(userWinsGameNotification)
+                                                 name: kGameViewDidFinishUserWinsNotification
+                                               object: nil];
 }
 
 - (void) userWantsMainMenu
@@ -108,6 +126,21 @@
 - (void) userWantsNewGame
 {
     [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidFinishNewGameNotification object: nil];
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: kGameViewDidFinishMineHitNotification
+                                                  object: nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: kGameViewDidRevealTileNotification
+                                                  object: nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: kGameViewDidFinishUserWinsNotification
+                                                  object: nil];
 }
 
 #pragma mark - UIScrollViewDelegate Methods
@@ -204,6 +237,52 @@
 - (UIView *) viewForZoomingInScrollView: (UIScrollView *) scrollView
 {
     return [self minefieldView];
+}
+
+#pragma mark - Notification Methods
+
+- (void) userHitMineNotification
+{
+    [self.scrollView setUserInteractionEnabled: NO];
+    
+    [UIView transitionWithView: self
+                      duration: 0.4f
+                       options: UIViewAnimationOptionCurveEaseInOut
+                    animations: ^{
+                        [self.scrollView setZoomScale: [self.scrollView minimumZoomScale]];
+                        [self.scrollView setContentInset: UIEdgeInsetsMake(0, 0, 0, 0)];
+                        [self.remainingTilesLabel setText: @"BOOM"];
+                    }
+                    completion: NULL];
+    
+    NSLog(@"GAME OVER BOOM!");
+}
+
+- (void) userRevealedTileNotification
+{
+    NSLog(@"TILE REVEALED");
+    
+    [self.remainingTilesLabel setText: [NSString stringWithFormat: @"%ld", [self.minefieldView remainingTiles]]];
+    
+    if ([self.minefieldView remainingTiles] == 0)
+        [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidFinishUserWinsNotification object: nil];
+}
+
+- (void) userWinsGameNotification
+{
+    [self.scrollView setUserInteractionEnabled: NO];
+    
+    [UIView transitionWithView: self
+                      duration: 0.4f
+                       options: UIViewAnimationOptionCurveEaseInOut
+                    animations: ^{
+                        [self.scrollView setZoomScale: [self.scrollView minimumZoomScale]];
+                        [self.scrollView setContentInset: UIEdgeInsetsMake(0, 0, 0, 0)];
+                        [self.remainingTilesLabel setText: @"You Win!"];
+                    }
+                    completion: NULL];
+    
+    NSLog(@"YOU WIN!");
 }
 
 @end

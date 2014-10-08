@@ -78,6 +78,8 @@
     [self setMinedTileViews: minedTileViews];
     [self setFlaggedTileViews: flaggedTileViews];
     
+    [self setRemainingTiles: [self.minefield safeTiles]];
+    
     // Initialize the TileViews and store them in the array
     [self initTileViews];    
 }
@@ -118,6 +120,8 @@
     }
 }
 
+
+
 // Returns the TileView at row column
 - (TileView *) tileViewAtRow: (NSInteger) row column: (NSInteger) column
 {
@@ -125,6 +129,14 @@
 }
 
 #pragma mark - TileViewDelegate Methods
+
+- (void) revealedTile
+{
+    [self setRemainingTiles: [self remainingTiles] - 1];
+    NSLog(@"Remaining Tiles: %ld", [self remainingTiles]);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidRevealTileNotification object: nil];
+}
 
 - (void) revealedTileIsMine: (TileView *) tileView
 {
@@ -135,7 +147,9 @@
     for (TileView *flaggedTileView in [self flaggedTileViews])
         [flaggedTileView revealTileViewMineAfterMineHit];
     
-    [self setUserInteractionEnabled: NO];    
+    [self setUserInteractionEnabled: NO];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidFinishMineHitNotification object: nil];
 }
 
 - (void) revealedTileIsZeroAtRow: (NSInteger) rowIndex column: (NSInteger) columnIndex
@@ -158,6 +172,8 @@
     
     if ([tileView adjacentMines] == 0)
     {
+        [self setRemainingTiles: [self remainingTiles] - 1];
+
         NSLog(@"Adjacent Mines == 0");
         for (NSInteger row = rowIndex - 1; row <= rowIndex + 1; row++)
         {
@@ -171,6 +187,8 @@
     {
         [tileView revealTile];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidRevealTileNotification object: nil];
 }
 
 - (void) didFlagTile: (TileView *) tileView

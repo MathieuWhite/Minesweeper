@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "TileView.h"
 
+static NSString * const kGameViewDidFinishMineHitNotification = @"kGameViewDidFinishMineHitNotification";
+static NSString * const kGameViewDidRevealTileNotification = @"kGameViewDidRevealTileNotification";
+
 typedef NS_ENUM (NSInteger, MinefieldDifficulty)
 {
     MinefieldDifficultyEasy,

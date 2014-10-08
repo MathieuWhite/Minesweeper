@@ -10,6 +10,7 @@
 #import "MinefieldView.h"
 
 static NSString * const kGameViewDidFinishNewGameNotification = @"kGameViewDidFinishNewGameNotification";
+static NSString * const kGameViewDidFinishUserWinsNotification = @"kGameViewDidFinishUserWinsNotification";
 static NSString * const kGameViewToMenuNotification = @"kGameViewToMenuNotification";
 
 @interface GameView : UIView

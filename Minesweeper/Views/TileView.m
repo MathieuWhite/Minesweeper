@@ -166,6 +166,10 @@
     
     NSLog(@"%ld", (long)[self adjacentMines]);
     [self.adjacentMinesLabel setText: [NSString stringWithFormat: @"%ld", (long)[self adjacentMines]]];
+    
+    // Check if the delegate is set and it responds to the selector
+    if ([self.delegate respondsToSelector: @selector(revealedTile)])
+        [self.delegate revealedTile];
 }
 
 - (void) revealTileViewWithZero

@@ -12,6 +12,7 @@
 
 @protocol TileViewDelegate <NSObject>
 
+- (void) revealedTile;
 - (void) revealedTileIsMine: (TileView *) tileView;
 - (void) revealedTileIsZeroAtRow: (NSInteger) rowIndex column: (NSInteger) columnIndex;
 - (void) didFlagTile: (TileView *) tileView;

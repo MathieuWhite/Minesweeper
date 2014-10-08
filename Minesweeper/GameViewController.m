@@ -30,11 +30,13 @@
     // Set each component to a property
     [self setGameView: gameView];
     
+    // Notification for when the user wants a new game
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(userWantsNewGameNotification:)
                                                  name: kGameViewDidFinishNewGameNotification
                                                object: nil];
     
+    // Notification for when the user wants to go back to the menu
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(userWantsMenuNotification:)
                                                  name: kGameViewToMenuNotification
@@ -46,6 +48,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: kGameViewDidFinishNewGameNotification
                                                   object: nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                    name: kGameViewToMenuNotification
+                                                  object: nil];
 }
 - (void) didReceiveMemoryWarning
 {
@@ -53,7 +59,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Notification Method
+#pragma mark - Notification Methods
 
 - (void) userWantsMenuNotification: (NSNotification *) notification
 {
