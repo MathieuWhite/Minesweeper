@@ -223,31 +223,36 @@
 {
     if (longPressGestureRecognizer.state == UIGestureRecognizerStateBegan)
     {
-        if (![self isFlagged])
-        {
-            [self.tapGestureRecognizer setEnabled: NO];
-            [self setBackgroundColor: colorForYellowFlag];
-            [self.flagImage setImage: [UIImage imageNamed: @"flag"]];
-            [self setFlagged: YES];
-            
-            // Check if the delegate is set and it responds to the selector
-            if ([self.delegate respondsToSelector: @selector(didFlagTile:)])
-                [self.delegate didFlagTile: self];
-        }
-        else
-        {
-            [self.tapGestureRecognizer setEnabled: YES];
-            
-            if ([self isDarkTone]) [self setDarkerTone: YES];
-            else [self setDarkerTone: NO];
-            
-            [self.flagImage setImage: nil];
-            [self setFlagged: NO];
-            
-            // Check if the delegate is set and it responds to the selector
-            if ([self.delegate respondsToSelector: @selector(didUnFlagTile:)])
-                [self.delegate didUnFlagTile: self];
-        }
+        [self toggleTileMarkedAsFlag];
+    }
+}
+
+- (void) toggleTileMarkedAsFlag
+{
+    if (![self isFlagged])
+    {
+        [self.tapGestureRecognizer setEnabled: NO];
+        [self setBackgroundColor: colorForYellowFlag];
+        [self.flagImage setImage: [UIImage imageNamed: @"flag"]];
+        [self setFlagged: YES];
+        
+        // Check if the delegate is set and it responds to the selector
+        if ([self.delegate respondsToSelector: @selector(didFlagTile:)])
+            [self.delegate didFlagTile: self];
+    }
+    else
+    {
+        [self.tapGestureRecognizer setEnabled: YES];
+        
+        if ([self isDarkTone]) [self setDarkerTone: YES];
+        else [self setDarkerTone: NO];
+        
+        [self.flagImage setImage: nil];
+        [self setFlagged: NO];
+        
+        // Check if the delegate is set and it responds to the selector
+        if ([self.delegate respondsToSelector: @selector(didUnFlagTile:)])
+            [self.delegate didUnFlagTile: self];
     }
 }
 

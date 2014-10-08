@@ -37,6 +37,7 @@
 - (void) revealTile;
 - (void) revealTileViewMineAfterMineHit;
 - (void) revealTileViewWithZero;
+- (void) toggleTileMarkedAsFlag;
 - (void) disableGestureRecognizers;
 - (void) enableGestureRecognizers;
 

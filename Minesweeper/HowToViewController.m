@@ -23,21 +23,20 @@
     
     // Close Button
     UIButton *closeButton = [UIButton buttonWithType: UIButtonTypeSystem];
-    [closeButton setFrame: CGRectMake(0, 10, 80, 44)];
-    [closeButton setTitle: @"Close" forState: UIControlStateNormal];
-    [closeButton setTitleColor: [UIColor whiteColor] forState: UIControlStateNormal];
-    [closeButton.titleLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 14.0f]];
+    [closeButton setFrame: CGRectMake(self.view.center.x - 22, self.view.frame.size.height - 64, 44, 44)];
+    [closeButton setBackgroundImage: [UIImage imageNamed: @"closeButton"] forState: UIControlStateNormal];
+    [closeButton setBackgroundImage: [UIImage imageNamed: @"closeButtonPressed"] forState: UIControlStateHighlighted];
     [closeButton addTarget: self action: @selector(closeHowTo) forControlEvents: UIControlEventTouchUpInside];
     
     // Title Label
-    UILabel *howToTitle = [[UILabel alloc] initWithFrame: CGRectMake(10, 80, 300, 44)];
+    UILabel *howToTitle = [[UILabel alloc] initWithFrame: CGRectMake(10, 10, 300, 44)];
     [howToTitle setText: @"How to Play"];
     [howToTitle setTextColor: [UIColor whiteColor]];
     [howToTitle setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 22.0f]];
     [howToTitle setTextAlignment: NSTextAlignmentCenter];
     
     // Separator between title and rules
-    UIView *separator = [[UIView alloc] initWithFrame: CGRectMake(10, 144, 300, 0.5)];
+    UIView *separator = [[UIView alloc] initWithFrame: CGRectMake(10, 64, 300, 0.5)];
     [separator setBackgroundColor: [UIColor colorWithRed: 72.0f/255.0f green: 72.0f/255.0f blue: 96.0f/255.0f alpha: 1.0f]];
     
     // Add the components to the view

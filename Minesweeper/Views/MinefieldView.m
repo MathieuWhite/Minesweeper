@@ -120,8 +120,6 @@
     }
 }
 
-
-
 // Returns the TileView at row column
 - (TileView *) tileViewAtRow: (NSInteger) row column: (NSInteger) column
 {
@@ -134,6 +132,16 @@
 {
     [self setRemainingTiles: [self remainingTiles] - 1];
     NSLog(@"Remaining Tiles: %ld", (unsigned long)[self remainingTiles]);
+    
+    // Reveal unmarked mines when user wins
+    if ([self remainingTiles] == 0)
+    {
+        for (TileView *minedTileView in [self minedTileViews])
+        {
+            if (![minedTileView isFlagged])
+                [minedTileView toggleTileMarkedAsFlag];
+        }
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidRevealTileNotification object: nil];
 }
