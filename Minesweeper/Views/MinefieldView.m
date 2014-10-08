@@ -79,8 +79,7 @@
     [self setFlaggedTileViews: flaggedTileViews];
     
     // Initialize the TileViews and store them in the array
-    [self initTileViews];
-    
+    [self initTileViews];    
 }
 
 - (void) initTileViews

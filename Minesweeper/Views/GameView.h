@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MinefieldView.h"
 
 static NSString * const kGameViewDidFinishNewGameNotification = @"kGameViewDidFinishNewGameNotification";
+static NSString * const kGameViewToMenuNotification = @"kGameViewToMenuNotification";
 
 @interface GameView : UIView
 
-@property (nonatomic, strong) NSString *difficulty;
+- (instancetype) initWithFrame: (CGRect) frame difficulty: (MinefieldDifficulty) difficulty;
 
 @end

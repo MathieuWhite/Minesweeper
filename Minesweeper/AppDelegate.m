@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "MenuViewController.h"
-#import "GameViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,13 +20,12 @@
     // Override point for customization after application launch.
     
     UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
-    //UINavigationController *navigationController = [[UINavigationController alloc] init];
-    //MenuViewController *menuViewController = [[MenuViewController alloc] init];
-    GameViewController *gameViewController = [[GameViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] init];
+    MenuViewController *menuViewController = [[MenuViewController alloc] init];
     
-    //[navigationController pushViewController: menuViewController animated: YES];
+    [navigationController pushViewController: menuViewController animated: YES];
     
-    [window setRootViewController: gameViewController];
+    [window setRootViewController: navigationController];
     [window makeKeyAndVisible];
     
     [self setWindow: window];

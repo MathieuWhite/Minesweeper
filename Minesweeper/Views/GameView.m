@@ -7,15 +7,18 @@
 //
 
 #import "GameView.h"
-#import "MinefieldView.h"
 
 @interface GameView() <UIScrollViewDelegate>
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 
+@property (nonatomic, weak) UILabel *remainingTilesLabel;
+@property (nonatomic, weak) UIButton *menuButton;
 @property (nonatomic, weak) UIButton *theNewGameButton;
 
 @property (nonatomic, weak) MinefieldView *minefieldView;
+
+@property (nonatomic) MinefieldDifficulty difficulty;
 
 @end
 
@@ -23,12 +26,13 @@
 
 #pragma mark - UIView Methods
 
-- (instancetype) initWithFrame: (CGRect) frame
+- (instancetype) initWithFrame: (CGRect) frame difficulty: (MinefieldDifficulty) difficulty
 {
     self = [super initWithFrame: frame];
     
     if (self)
     {
+        [self setDifficulty: difficulty];
         [self initGameView];
     }
     
@@ -43,7 +47,7 @@
     [self setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
     // Initialize the Minefield
-    MinefieldView *minefieldView = [[MinefieldView alloc] initWithDifficulty: MinefieldDifficultyEasy];
+    MinefieldView *minefieldView = [[MinefieldView alloc] initWithDifficulty: [self difficulty]];
     
     // Initialize the scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: [self bounds]];
@@ -56,33 +60,49 @@
     [scrollView setShowsVerticalScrollIndicator: NO];
     [scrollView setDelegate: self];
     
-    // testing label
-    UILabel *testLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, 10, 300, 44)];
-    [testLabel setText: @"Testing label"];
-    [testLabel setTextColor: [UIColor whiteColor]];
-    [testLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 22.0f]];
-    [testLabel setTextAlignment: NSTextAlignmentCenter];
-    [self addSubview: testLabel];
+    // Remaining Tiles Label
+    UILabel *remainingTilesLabel = [[UILabel alloc] initWithFrame: CGRectMake(10, 10, 300, 44)];
+    [remainingTilesLabel setText: @"Label"];
+    [remainingTilesLabel setTextColor: [UIColor whiteColor]];
+    [remainingTilesLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 22.0f]];
+    [remainingTilesLabel setTextAlignment: NSTextAlignmentCenter];
     
-    // test button
+    // Menu Button
+    UIButton *menuButton = [UIButton buttonWithType: UIButtonTypeSystem];
+    [menuButton setFrame: CGRectMake(0, 10, 64, 44)];
+    [menuButton setTitle: @"Menu" forState: UIControlStateNormal];
+    [menuButton setTitleColor: [UIColor whiteColor] forState: UIControlStateNormal];
+    [menuButton.titleLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 14.0f]];
+    [menuButton addTarget: self action: @selector(userWantsMainMenu) forControlEvents: UIControlEventTouchUpInside];
+    
+    // New Game Button
     UIButton *theNewGameButton = [UIButton buttonWithType: UIButtonTypeSystem];
     [theNewGameButton setFrame: CGRectMake(self.frame.size.width - 90, 10, 80, 44)];
     [theNewGameButton setTitle: @"New Game" forState: UIControlStateNormal];
     [theNewGameButton setTitleColor: [UIColor whiteColor] forState: UIControlStateNormal];
     [theNewGameButton.titleLabel setFont: [UIFont fontWithName: @"HelveticaNeue-Light" size: 14.0f]];
     [theNewGameButton addTarget: self action: @selector(userWantsNewGame) forControlEvents: UIControlEventTouchUpInside];
-    [self addSubview: theNewGameButton];
     
     // Add the components to the scroll view
     [scrollView addSubview: minefieldView];
     
-    // Add the scroll view to the view
+    // Add the components to the view
+    [self addSubview: remainingTilesLabel];
+    [self addSubview: menuButton];
+    [self addSubview: theNewGameButton];
     [self addSubview: scrollView];
     
     // Set each component to a property
     [self setScrollView: scrollView];
     [self setMinefieldView: minefieldView];
+    [self setRemainingTilesLabel: remainingTilesLabel];
+    [self setMenuButton: menuButton];
     [self setTheNewGameButton: theNewGameButton];
+}
+
+- (void) userWantsMainMenu
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewToMenuNotification object: nil];
 }
 
 - (void) userWantsNewGame
@@ -133,6 +153,7 @@
                         completion: ^(BOOL finished) {
                             [self.minefieldView setUserInteractionEnabled: NO];
                             [self bringSubviewToFront: [self theNewGameButton]];
+                            [self bringSubviewToFront: [self menuButton]];
                         }];
     }
         
@@ -157,7 +178,7 @@
                           duration: 0.4f
                            options: UIViewAnimationOptionCurveEaseInOut
                         animations: ^{
-                            targetContentOffset->y = 0.0;
+                            //targetContentOffset->y = 0.0;
                             [self bringSubviewToFront: scrollView];
                         }
                         completion: NULL];
@@ -168,8 +189,9 @@
                           duration: 0.4f
                            options: UIViewAnimationOptionCurveEaseInOut
                         animations: ^{
-                            targetContentOffset->y = -64.0;
+                            //targetContentOffset->y = -64.0;
                             [self bringSubviewToFront: [self theNewGameButton]];
+                            [self bringSubviewToFront: [self menuButton]];
                         }
                         completion: NULL];
     }

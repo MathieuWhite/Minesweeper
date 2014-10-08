@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E00B31E19E4BFD500E5695A /* HowToViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E00B31D19E4BFD500E5695A /* HowToViewController.m */; };
 		4E063AAE19DDC63000693758 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E063AAD19DDC63000693758 /* GameView.m */; };
 		4E063AB219DDC69200693758 /* TileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E063AB119DDC69200693758 /* TileView.m */; };
 		4E0E7A1019E00D6500010866 /* MinefieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0E7A0F19E00D6500010866 /* MinefieldView.m */; };
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E00B31C19E4BFD500E5695A /* HowToViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HowToViewController.h; sourceTree = "<group>"; };
+		4E00B31D19E4BFD500E5695A /* HowToViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HowToViewController.m; sourceTree = "<group>"; };
 		4E063AAC19DDC63000693758 /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameView.h; path = Views/GameView.h; sourceTree = "<group>"; };
 		4E063AAD19DDC63000693758 /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameView.m; path = Views/GameView.m; sourceTree = "<group>"; };
 		4E063AB019DDC69200693758 /* TileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TileView.h; path = Views/TileView.h; sourceTree = "<group>"; };
@@ -121,6 +124,8 @@
 			children = (
 				4E0FBA4619E3697300263141 /* GameViewController.h */,
 				4E0FBA4719E3697300263141 /* GameViewController.m */,
+				4E00B31C19E4BFD500E5695A /* HowToViewController.h */,
+				4E00B31D19E4BFD500E5695A /* HowToViewController.m */,
 				4E0FBA4919E3698600263141 /* MenuViewController.h */,
 				4E0FBA4A19E3698600263141 /* MenuViewController.m */,
 				4E9041E819DB935A008490A0 /* Images.xcassets */,
@@ -259,6 +264,7 @@
 			files = (
 				4E0FBA4819E3697300263141 /* GameViewController.m in Sources */,
 				4E9041E119DB9359008490A0 /* AppDelegate.m in Sources */,
+				4E00B31E19E4BFD500E5695A /* HowToViewController.m in Sources */,
 				4E0E7A1019E00D6500010866 /* MinefieldView.m in Sources */,
 				4E063AB219DDC69200693758 /* TileView.m in Sources */,
 				4E57362919DF890100D92502 /* Minefield.m in Sources */,

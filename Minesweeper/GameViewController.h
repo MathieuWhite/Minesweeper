@@ -12,5 +12,6 @@
 @interface GameViewController : UIViewController
 
 @property (nonatomic, weak) GameView *gameView;
+@property (nonatomic) MinefieldDifficulty difficulty;
 
 @end
