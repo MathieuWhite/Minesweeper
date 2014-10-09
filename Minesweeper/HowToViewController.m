@@ -7,8 +7,12 @@
 //
 
 #import "HowToViewController.h"
+#import "DemoGameView.h"
 
 @interface HowToViewController ()
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIPageControl *pageControl;
 
 @end
 
@@ -39,10 +43,41 @@
     UIView *separator = [[UIView alloc] initWithFrame: CGRectMake(10, 64, 300, 0.5)];
     [separator setBackgroundColor: [UIColor colorWithRed: 72.0f/255.0f green: 72.0f/255.0f blue: 96.0f/255.0f alpha: 1.0f]];
     
+    // Initialize the demo game view
+    DemoGameView *flagDemo = [[DemoGameView alloc] initWithWalkthoughPage: DemoGameViewWalkthroughPageFlag];
+    [flagDemo setCenter: [self.view center]];
+    
+    
+    // Initialize the scroll view
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: CGRectMake(0, 0, 280, 280)];
+    [scrollView setCenter: [self.view center]];
+    [scrollView setMinimumZoomScale: 1.0f];
+    [scrollView setMaximumZoomScale: 1.0f];
+    [scrollView setShowsHorizontalScrollIndicator: NO];
+    [scrollView setShowsVerticalScrollIndicator: NO];
+    [scrollView setScrollEnabled: YES];
+    [scrollView setPagingEnabled: YES];
+    [scrollView setBackgroundColor: [UIColor grayColor]];
+    [scrollView setDelegate: self];
+    
+    // Initialize the page control
+    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame: CGRectMake(0, 0, 320, 20)];
+    [pageControl setCenter: CGPointMake(self.view.center.x, self.view.center.y + 160)];
+    [pageControl setNumberOfPages: 4];
+    [pageControl setCurrentPage: 0];
+    [pageControl setPageIndicatorTintColor: [separator backgroundColor]];
+    
     // Add the components to the view
     [self.view addSubview: closeButton];
     [self.view addSubview: howToTitle];
     [self.view addSubview: separator];
+    //[self.view addSubview: pageControl];
+    //[self.view addSubview: scrollView];
+    [self.view addSubview: flagDemo];
+    
+    // Set each component to a property
+    [self setScrollView: scrollView];
+    [self setPageControl: pageControl];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,7 +90,7 @@
     [self dismissViewControllerAnimated: YES completion: nil];
 }
 
--(UIImage *) convertViewToImage
+- (UIImage *) convertViewToImage
 {
     UIGraphicsBeginImageContext(self.view.bounds.size);
     [self.view drawViewHierarchyInRect: self.view.bounds afterScreenUpdates: YES];
@@ -63,6 +98,23 @@
     UIGraphicsEndImageContext();
     
     return image;
+}
+
+#pragma mark - Paging Methods
+
+- (void) loadVisiblePages
+{
+    
+}
+
+- (void) loadPage: (NSInteger) page
+{
+    
+}
+
+- (void) purgePage: (NSInteger) page
+{
+    
 }
 
 @end

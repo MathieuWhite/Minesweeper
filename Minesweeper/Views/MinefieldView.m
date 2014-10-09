@@ -37,10 +37,16 @@
             [self setMinefield: minefield];
             [self initMinefieldView];
         }
-        else
+        else if (difficulty == MinefieldDifficultyHard)
         {
             //Minefield *minefield = [[Minefield alloc] initWithMines: 40 rows: 17 columns: 17];
             Minefield *minefield = [[Minefield alloc] initWithMines: 50 rows: 25 columns: 25];
+            [self setMinefield: minefield];
+            [self initMinefieldView];
+        }
+        else if (difficulty == MinefieldDifficultyDemo)
+        {
+            Minefield *minefield = [[Minefield alloc] initWithMines: 3 rows: 5 columns: 5];
             [self setMinefield: minefield];
             [self initMinefieldView];
         }
@@ -170,7 +176,7 @@
     TileView *tileView = [self tileViewAtRow: rowIndex column: columnIndex];
     NSLog(@"Count: %ld", (long)[tileView adjacentMines]);
     
-    if ([tileView isRevealed] || [tileView isMine])
+    if ([tileView isRevealed] || [tileView isMine] || [tileView isFlagged])
         return;
     
     [tileView setRevealed: YES];
