@@ -2,17 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "closeButtonPressed@2x.png"
+      "filename" : "walkthroughFlag@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "closeButtonPressed@3x.png"
+      "filename" : "walkthroughFlag@3x.png"
     }
   ],
   "info" : {

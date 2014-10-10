@@ -15,6 +15,8 @@ static NSString * const kGameViewToMenuNotification = @"kGameViewToMenuNotificat
 
 @interface GameView : UIView
 
+@property (nonatomic, weak) MinefieldView *minefieldView;
+
 - (instancetype) initWithFrame: (CGRect) frame difficulty: (MinefieldDifficulty) difficulty;
 
 @end

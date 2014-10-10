@@ -27,5 +27,6 @@ typedef NS_ENUM (NSInteger, MinefieldDifficulty)
 @property (nonatomic) NSUInteger remainingTiles;
 
 - (instancetype) initWithDifficulty: (MinefieldDifficulty) difficulty;
+- (TileView *) tileViewAtRow: (NSInteger) row column: (NSInteger) column;
 
 @end

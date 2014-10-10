@@ -19,8 +19,6 @@
 @property (nonatomic, weak) UIButton *menuButton;
 @property (nonatomic, weak) UIButton *theNewGameButton;
 
-@property (nonatomic, weak) MinefieldView *minefieldView;
-
 @property (nonatomic) MinefieldDifficulty difficulty;
 
 @end

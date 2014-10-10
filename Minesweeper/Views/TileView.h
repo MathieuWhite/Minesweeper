@@ -24,7 +24,6 @@
 
 @property (nonatomic, weak) id <TileViewDelegate> delegate;
 
-//@property (nonatomic, strong) NSMutableArray *adjacentTiles;
 @property (nonatomic) NSInteger adjacentMines;
 @property (nonatomic) NSUInteger rowIndex;
 @property (nonatomic) NSUInteger columnIndex;

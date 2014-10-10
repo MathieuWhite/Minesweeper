@@ -69,9 +69,6 @@
     UILongPressGestureRecognizer *longPressGestureRecongnizer = [[UILongPressGestureRecognizer alloc]
                                                                  initWithTarget: self action: @selector(touchedAndHeldTile:)];
     
-    // Initialize the array that will hold the adjacent tiles
-    //NSMutableArray *adjacentTiles = [[NSMutableArray alloc] initWithCapacity: 8];
-    
     // Initialize the flag image
     UIImageView *flagImage = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, 64, 64)];
     
@@ -96,7 +93,6 @@
     [self setFlagImage: flagImage];
     [self setMineImage: mineImage];
     [self setAdjacentMinesLabel: adjacentMinesLabel];
-    //[self setAdjacentTiles: adjacentTiles];
     
     [self setRevealed: NO];
     [self setFlagged: NO];
