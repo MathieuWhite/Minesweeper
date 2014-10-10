@@ -38,8 +38,7 @@
     if (![userDefaults objectForKey: @"kUserDidLaunchAppBefore"])
     {
         NSLog(@"First Launch");
-        CGFloat delayInSeconds = 0.2f;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds *   NSEC_PER_SEC));
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 *   NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [navigationController presentViewController: howToViewController animated: YES completion: nil];
         });
