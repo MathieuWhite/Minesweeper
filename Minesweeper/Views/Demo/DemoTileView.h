@@ -16,6 +16,8 @@ typedef NS_ENUM(NSUInteger, DemoTileViewType)
 
 @interface DemoTileView : UIView
 
+@property (nonatomic) NSInteger adjacentMines;
+
 - (instancetype) initWithTileViewType: (DemoTileViewType) tileViewType;
 
 - (void) setDarkerTone: (BOOL) darkerTone;

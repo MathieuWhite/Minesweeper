@@ -8,15 +8,13 @@
 
 #import "HowToViewController.h"
 #import "DemoGameViewFlag.h"
+#import "DemoGameViewNormal.h"
 
 @interface HowToViewController ()
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, weak) UIPageControl *pageControl;
 
-@property (nonatomic, weak) DemoGameViewFlag *demoGameViewFlag;
-
-@property (nonatomic, strong) NSArray *demos;
 @property (nonatomic, strong) NSMutableArray *demoViews;
 
 @end
@@ -48,17 +46,19 @@
     UIView *separator = [[UIView alloc] initWithFrame: CGRectMake(10, 64, 300, 0.5)];
     [separator setBackgroundColor: [UIColor colorWithRed: 72.0f/255.0f green: 72.0f/255.0f blue: 96.0f/255.0f alpha: 1.0f]];
     
+    // Normal walkthrough
+    DemoGameViewNormal *demoGameViewNormal = [[DemoGameViewNormal alloc] initWithFrame: [self.view bounds]];
+    
     // Flag walkthrough
     DemoGameViewFlag *demoGameViewFlag = [[DemoGameViewFlag alloc] initWithFrame: [self.view bounds]];
-    DemoGameViewFlag *demoGameViewFlag2 = [[DemoGameViewFlag alloc] initWithFrame: [self.view bounds]];
     DemoGameViewFlag *demoGameViewFlag3 = [[DemoGameViewFlag alloc] initWithFrame: [self.view bounds]];
     DemoGameViewFlag *demoGameViewFlag4 = [[DemoGameViewFlag alloc] initWithFrame: [self.view bounds]];
 
     
     // Initialize the the demo views array
     NSMutableArray *demoViews = [[NSMutableArray alloc] initWithCapacity: 4];
+    [demoViews addObject: demoGameViewNormal];
     [demoViews addObject: demoGameViewFlag];
-    [demoViews addObject: demoGameViewFlag2];
     [demoViews addObject: demoGameViewFlag3];
     [demoViews addObject: demoGameViewFlag4];
 
