@@ -45,7 +45,8 @@
     [flagDemoTileView setDarkerTone: YES];
     
     // Help Label
-    UILabel *helpLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, self.frame.size.height - 64, 320, 44)];
+    UILabel *helpLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 320, 44)];
+    [helpLabel setCenter: CGPointMake(self.center.x, self.center.y + 160)];
     [helpLabel setText: @"Tap and hold tiles to mark as flagged"];
     [helpLabel setTextColor: [UIColor whiteColor]];
     [helpLabel setTextAlignment: NSTextAlignmentCenter];

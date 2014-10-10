@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MenuViewController.h"
+#import "HowToViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,17 +17,35 @@
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
     // Override point for customization after application launch.
     
     UIWindow *window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
     UINavigationController *navigationController = [[UINavigationController alloc] init];
     MenuViewController *menuViewController = [[MenuViewController alloc] init];
+    HowToViewController *howToViewController = [[HowToViewController alloc] init];
+    [howToViewController setModalPresentationStyle: UIModalPresentationFullScreen];
+    [howToViewController setModalTransitionStyle: UIModalTransitionStyleCoverVertical];
     
     [navigationController pushViewController: menuViewController animated: YES];
-    
     [window setRootViewController: navigationController];
     [window makeKeyAndVisible];
+    
+    // User Defaults to check first launch
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![userDefaults objectForKey: @"kUserDidLaunchAppBefore"])
+    {
+        NSLog(@"First Launch");
+        CGFloat delayInSeconds = 0.2f;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds *   NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [navigationController presentViewController: howToViewController animated: YES completion: nil];
+        });
+        [userDefaults setObject: @"YES" forKey: @"kUserDidLaunchAppBefore"];
+    }
+    [userDefaults synchronize];
     
     [self setWindow: window];
     

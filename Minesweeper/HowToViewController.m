@@ -9,6 +9,8 @@
 #import "HowToViewController.h"
 #import "DemoGameViewFlag.h"
 #import "DemoGameViewNormal.h"
+#import "DemoMinefieldView.h"
+#import "DemoEnjoy.h"
 
 @interface HowToViewController ()
 
@@ -28,13 +30,6 @@
     // Set the background color
     [self.view setBackgroundColor: [UIColor colorWithRed: 46.0f/255.0f green: 46.0f/255.0f blue: 59.0f/255.0f alpha: 1.0f]];
     
-    // Close Button
-    UIButton *closeButton = [UIButton buttonWithType: UIButtonTypeSystem];
-    [closeButton setFrame: CGRectMake(self.view.center.x - 22, self.view.frame.size.height - 64, 44, 44)];
-    [closeButton setBackgroundImage: [UIImage imageNamed: @"closeButton"] forState: UIControlStateNormal];
-    [closeButton setBackgroundImage: [UIImage imageNamed: @"closeButtonPressed"] forState: UIControlStateHighlighted];
-    [closeButton addTarget: self action: @selector(closeHowTo) forControlEvents: UIControlEventTouchUpInside];
-    
     // Title Label
     UILabel *howToTitle = [[UILabel alloc] initWithFrame: CGRectMake(10, 10, 300, 44)];
     [howToTitle setText: @"How to Play"];
@@ -51,16 +46,25 @@
     
     // Flag walkthrough
     DemoGameViewFlag *demoGameViewFlag = [[DemoGameViewFlag alloc] initWithFrame: [self.view bounds]];
-    DemoGameViewFlag *demoGameViewFlag3 = [[DemoGameViewFlag alloc] initWithFrame: [self.view bounds]];
-    DemoGameViewFlag *demoGameViewFlag4 = [[DemoGameViewFlag alloc] initWithFrame: [self.view bounds]];
-
+    
+    // Swipe Walkthrough
+    DemoMinefieldView *demoMinefieldViewSwipe = [[DemoMinefieldView alloc] initWithFrame: [self.view bounds]];
+    [demoMinefieldViewSwipe.helpLabel setText: @"Swipe to pan across the minefield"];
+    
+    // Zoom Walkthrough
+    DemoMinefieldView *demoMinefieldViewZoom = [[DemoMinefieldView alloc] initWithFrame: [self.view bounds]];
+    [demoMinefieldViewZoom.helpLabel setText: @"Pinch to zoom the minefield in or out"];
+    
+    // Enjoy View
+    DemoEnjoy *demoEnjoy = [[DemoEnjoy alloc] initWithFrame: [self.view bounds]];
     
     // Initialize the the demo views array
     NSMutableArray *demoViews = [[NSMutableArray alloc] initWithCapacity: 4];
     [demoViews addObject: demoGameViewNormal];
     [demoViews addObject: demoGameViewFlag];
-    [demoViews addObject: demoGameViewFlag3];
-    [demoViews addObject: demoGameViewFlag4];
+    [demoViews addObject: demoMinefieldViewSwipe];
+    [demoViews addObject: demoMinefieldViewZoom];
+    [demoViews addObject: demoEnjoy];
 
     // Initialize the scroll view
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame: [self.view bounds]];
@@ -74,19 +78,12 @@
     
     // Initialize the page control
     UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame: CGRectMake(0, 0, 320, 20)];
-    [pageControl setCenter: CGPointMake(self.view.center.x, self.view.center.y + 160)];
+    [pageControl setCenter: CGPointMake(self.view.center.x, self.view.frame.size.height - 32)];
     [pageControl setCurrentPage: 0];
-    [pageControl setNumberOfPages: 4];
+    [pageControl setNumberOfPages: [demoViews count]];
     [pageControl setPageIndicatorTintColor: [separator backgroundColor]];
     
-    
-    
-    [scrollView addSubview: demoGameViewFlag];
-
-    
-    
     // Add the components to the view
-    //[self.view addSubview: closeButton];
     [self.view addSubview: howToTitle];
     [self.view addSubview: separator];
     [self.view addSubview: pageControl];
@@ -166,6 +163,30 @@
 - (void) scrollViewDidScroll: (UIScrollView *) scrollView
 {
     [self loadVisibleDemos];
+    
+    if ([self.pageControl currentPage] == [self.demoViews count] - 1)
+    {
+        // Close Button
+        UIButton *closeButton = [UIButton buttonWithType: UIButtonTypeSystem];
+        [closeButton setFrame: CGRectMake(self.view.center.x - 22, self.view.frame.size.height - 64, 44, 44)];
+        [closeButton setBackgroundImage: [UIImage imageNamed: @"closeButton"] forState: UIControlStateNormal];
+        [closeButton setBackgroundImage: [UIImage imageNamed: @"closeButtonPressed"] forState: UIControlStateHighlighted];
+        [closeButton addTarget: self action: @selector(closeHowTo) forControlEvents: UIControlEventTouchUpInside];
+        [closeButton setAlpha: 0.0f];
+        [self.view addSubview: closeButton];
+        
+        [UIView transitionWithView: closeButton
+                          duration: 0.6f
+                           options: UIViewAnimationOptionCurveEaseInOut
+                        animations: ^{
+                            [closeButton setAlpha: 1.0f];
+                            [self.pageControl setAlpha: 0.0f];
+                        }
+                        completion: ^(BOOL finished){
+                            [self.scrollView setUserInteractionEnabled: NO];
+                            [self.pageControl removeFromSuperview];
+                        }];
+    }
 }
 
 @end

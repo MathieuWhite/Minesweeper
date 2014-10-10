@@ -23,6 +23,8 @@
 		4E9041F819DB935A008490A0 /* MinesweeperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9041F719DB935A008490A0 /* MinesweeperTests.m */; };
 		4EDCFD8D19E4DF6800E4F471 /* UIScrollView+ZoomToPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDCFD8C19E4DF6800E4F471 /* UIScrollView+ZoomToPoint.m */; };
 		4EE33EFE19DDC87F000BBD09 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE33EFD19DDC87F000BBD09 /* Tile.m */; };
+		4EE7F4DF19E8538700229B6B /* DemoMinefieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7F4DE19E8538700229B6B /* DemoMinefieldView.m */; };
+		4EE7F4E219E85B7A00229B6B /* DemoEnjoy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE7F4E119E85B7A00229B6B /* DemoEnjoy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,10 @@
 		4EDCFD8C19E4DF6800E4F471 /* UIScrollView+ZoomToPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+ZoomToPoint.m"; path = "Categories/UIScrollView+ZoomToPoint.m"; sourceTree = "<group>"; };
 		4EE33EFC19DDC87F000BBD09 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tile.h; path = Models/Tile.h; sourceTree = "<group>"; };
 		4EE33EFD19DDC87F000BBD09 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tile.m; path = Models/Tile.m; sourceTree = "<group>"; };
+		4EE7F4DD19E8538700229B6B /* DemoMinefieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoMinefieldView.h; path = Views/Demo/DemoMinefieldView.h; sourceTree = "<group>"; };
+		4EE7F4DE19E8538700229B6B /* DemoMinefieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoMinefieldView.m; path = Views/Demo/DemoMinefieldView.m; sourceTree = "<group>"; };
+		4EE7F4E019E85B7A00229B6B /* DemoEnjoy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoEnjoy.h; path = Views/Demo/DemoEnjoy.h; sourceTree = "<group>"; };
+		4EE7F4E119E85B7A00229B6B /* DemoEnjoy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoEnjoy.m; path = Views/Demo/DemoEnjoy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,10 +123,14 @@
 		4E21288D19E74E5500FA2B4B /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				4EE7F4E019E85B7A00229B6B /* DemoEnjoy.h */,
+				4EE7F4E119E85B7A00229B6B /* DemoEnjoy.m */,
 				4E56E5E819E7550600364BCB /* DemoGameViewFlag.h */,
 				4E56E5E919E7550600364BCB /* DemoGameViewFlag.m */,
 				4E56E5EB19E770F700364BCB /* DemoGameViewNormal.h */,
 				4E56E5EC19E770F700364BCB /* DemoGameViewNormal.m */,
+				4EE7F4DD19E8538700229B6B /* DemoMinefieldView.h */,
+				4EE7F4DE19E8538700229B6B /* DemoMinefieldView.m */,
 				4E56E5E519E74EC500364BCB /* DemoTileView.h */,
 				4E56E5E619E74EC500364BCB /* DemoTileView.m */,
 			);
@@ -298,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EE7F4E219E85B7A00229B6B /* DemoEnjoy.m in Sources */,
 				4E0FBA4819E3697300263141 /* GameViewController.m in Sources */,
 				4E9041E119DB9359008490A0 /* AppDelegate.m in Sources */,
 				4E56E5ED19E770F700364BCB /* DemoGameViewNormal.m in Sources */,
@@ -306,6 +317,7 @@
 				4E063AB219DDC69200693758 /* TileView.m in Sources */,
 				4E57362919DF890100D92502 /* Minefield.m in Sources */,
 				4E56E5EA19E7550600364BCB /* DemoGameViewFlag.m in Sources */,
+				4EE7F4DF19E8538700229B6B /* DemoMinefieldView.m in Sources */,
 				4EDCFD8D19E4DF6800E4F471 /* UIScrollView+ZoomToPoint.m in Sources */,
 				4E063AAE19DDC63000693758 /* GameView.m in Sources */,
 				4EE33EFE19DDC87F000BBD09 /* Tile.m in Sources */,

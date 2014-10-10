@@ -44,12 +44,6 @@
             [self setMinefield: minefield];
             [self initMinefieldView];
         }
-        else if (difficulty == MinefieldDifficultyDemo)
-        {
-            Minefield *minefield = [[Minefield alloc] initWithMines: 3 rows: 5 columns: 5];
-            [self setMinefield: minefield];
-            [self initMinefieldView];
-        }
     }
     
     return self;

@@ -40,12 +40,12 @@
     [normalWalkthroughView setCenter: [self center]];
     
     // Demo Tiles
-    for (NSUInteger rowIndex = 0; rowIndex < 3; rowIndex++)
+    for (NSInteger rowIndex = 0; rowIndex < 4; rowIndex++)
     {
-        for (NSUInteger columnIndex = 0; columnIndex < 3; columnIndex++)
+        for (NSInteger columnIndex = 0; columnIndex < 4; columnIndex++)
         {
-            CGFloat offsetX = (columnIndex * 64);
-            CGFloat offsetY = (rowIndex * 64) + 24;
+            CGFloat offsetX = (columnIndex * 64) + 24;
+            CGFloat offsetY = (rowIndex * 64) + 12;
             
             NSUInteger random = arc4random_uniform((uint32_t) 8) + 1;
 
@@ -54,15 +54,16 @@
             [normalDemoTileView setAdjacentMines: random];
             
             if ((columnIndex + rowIndex) % 2 == 0)
-                [normalDemoTileView setDarkerTone: YES];
-            else [normalDemoTileView setDarkerTone: NO];
+                [normalDemoTileView setDarkerTone: NO];
+            else [normalDemoTileView setDarkerTone: YES];
             
             [normalWalkthroughView addSubview: normalDemoTileView];
         }
     }
     
     // Help Label
-    UILabel *helpLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, self.frame.size.height - 64, 320, 44)];
+    UILabel *helpLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 320, 44)];
+    [helpLabel setCenter: CGPointMake(self.center.x, self.center.y + 160)];
     [helpLabel setText: @"Reveal tiles and avoid mines"];
     [helpLabel setTextColor: [UIColor whiteColor]];
     [helpLabel setTextAlignment: NSTextAlignmentCenter];
@@ -73,7 +74,6 @@
     [self addSubview: helpLabel];
     
     // Set each component to a property
-    //[self setFlagDemoTileView: flagDemoTileView];
     [self setNormalWalkthroughView: normalWalkthroughView];
     [self setHelpLabel: helpLabel];
 }

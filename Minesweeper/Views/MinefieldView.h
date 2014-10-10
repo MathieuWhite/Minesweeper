@@ -16,8 +16,7 @@ typedef NS_ENUM (NSInteger, MinefieldDifficulty)
 {
     MinefieldDifficultyEasy,
     MinefieldDifficultyMedium,
-    MinefieldDifficultyHard,
-    MinefieldDifficultyDemo
+    MinefieldDifficultyHard
 };
 
 @interface MinefieldView : UIView
