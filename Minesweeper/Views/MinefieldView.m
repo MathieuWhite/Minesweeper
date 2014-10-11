@@ -126,6 +126,29 @@
     return [[self.tileViews objectAtIndex: row] objectAtIndex: column];
 }
 
+/*
+// Checks if all flagged tiles are mines
+- (void) checkIfFlaggedTilesAreMines
+{
+    NSLog(@"Check Flags");
+    
+    BOOL allMinesAreFlagged = YES;
+    
+    for (TileView *flaggedTile in [self flaggedTileViews])
+    {
+        if ([flaggedTile isMine]) continue;
+        else
+        {
+            allMinesAreFlagged = NO;
+            break;
+        }
+    }
+    
+    if (allMinesAreFlagged)
+        [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidFlagAllMines object: nil];
+}
+*/
+
 #pragma mark - TileViewDelegate Methods
 
 - (void) revealedTile
@@ -205,12 +228,18 @@
 {
     [self.flaggedTileViews addObject: tileView];
     NSLog(@"Flag count: %lu", (unsigned long) [self.flaggedTileViews count]);
+    
+    //if ([self.flaggedTileViews count] == [self.minefield mines])
+        //[self checkIfFlaggedTilesAreMines];
 }
 
 - (void) didUnFlagTile: (TileView *) tileView
 {
     [self.flaggedTileViews removeObject: tileView];
     NSLog(@"Flag count: %lu", (unsigned long) [self.flaggedTileViews count]);
+    
+    //if ([self.flaggedTileViews count] == [self.minefield mines])
+        //[self checkIfFlaggedTilesAreMines];
 }
 
 @end

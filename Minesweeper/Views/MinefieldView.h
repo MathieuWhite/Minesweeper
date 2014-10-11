@@ -11,6 +11,7 @@
 
 static NSString * const kGameViewDidFinishMineHitNotification = @"kGameViewDidFinishMineHitNotification";
 static NSString * const kGameViewDidRevealTileNotification = @"kGameViewDidRevealTileNotification";
+static NSString * const kGameViewDidFlagAllMines = @"kGameViewDidFlagAllMines";
 
 typedef NS_ENUM (NSInteger, MinefieldDifficulty)
 {
