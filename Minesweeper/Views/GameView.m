@@ -120,12 +120,6 @@
                                                  name: kGameViewDidRevealTileNotification
                                                object: nil];
     
-    // Notification for when the user flags all mines
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(userWinsGameNotification)
-                                                 name: kGameViewDidFlagAllMines
-                                               object: nil];
-    
     // Notification for when the user wins
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(userWinsGameNotification)
@@ -155,10 +149,6 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver: self
                                                     name: kGameViewDidFinishUserWinsNotification
-                                                  object: nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver: self
-                                                    name: kGameViewDidFlagAllMines
                                                   object: nil];
 }
 

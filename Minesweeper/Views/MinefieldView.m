@@ -126,7 +126,6 @@
     return [[self.tileViews objectAtIndex: row] objectAtIndex: column];
 }
 
-/*
 // Checks if all flagged tiles are mines
 - (void) checkIfFlaggedTilesAreMines
 {
@@ -145,9 +144,21 @@
     }
     
     if (allMinesAreFlagged)
-        [[NSNotificationCenter defaultCenter] postNotificationName: kGameViewDidFlagAllMines object: nil];
+    {
+        NSLog(@"WINNER");
+        for (NSUInteger row = 0; row < [self.minefield rows]; row++)
+        {
+            for (NSUInteger column = 0; column < [self.minefield columns]; column++)
+            {
+                TileView *tileView = [self tileViewAtRow: row column: column];
+                if (![tileView isRevealed] && ![tileView isMine])
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.001 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [tileView revealTile];
+                    });
+            }
+        }
+    }
 }
-*/
 
 #pragma mark - TileViewDelegate Methods
 
@@ -229,8 +240,8 @@
     [self.flaggedTileViews addObject: tileView];
     NSLog(@"Flag count: %lu", (unsigned long) [self.flaggedTileViews count]);
     
-    //if ([self.flaggedTileViews count] == [self.minefield mines])
-        //[self checkIfFlaggedTilesAreMines];
+    if ([self.flaggedTileViews count] == [self.minefield mines])
+        [self checkIfFlaggedTilesAreMines];
 }
 
 - (void) didUnFlagTile: (TileView *) tileView
@@ -238,8 +249,8 @@
     [self.flaggedTileViews removeObject: tileView];
     NSLog(@"Flag count: %lu", (unsigned long) [self.flaggedTileViews count]);
     
-    //if ([self.flaggedTileViews count] == [self.minefield mines])
-        //[self checkIfFlaggedTilesAreMines];
+    if ([self.flaggedTileViews count] == [self.minefield mines])
+        [self checkIfFlaggedTilesAreMines];
 }
 
 @end
