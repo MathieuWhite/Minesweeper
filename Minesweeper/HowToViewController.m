@@ -59,7 +59,7 @@
     DemoEnjoy *demoEnjoy = [[DemoEnjoy alloc] initWithFrame: [self.view bounds]];
     
     // Initialize the the demo views array
-    NSMutableArray *demoViews = [[NSMutableArray alloc] initWithCapacity: 4];
+    NSMutableArray *demoViews = [NSMutableArray arrayWithCapacity: 5];
     [demoViews addObject: demoGameViewNormal];
     [demoViews addObject: demoGameViewFlag];
     [demoViews addObject: demoMinefieldViewSwipe];
@@ -113,16 +113,6 @@
 - (void) closeHowTo
 {
     [self dismissViewControllerAnimated: YES completion: nil];
-}
-
-- (UIImage *) convertViewToImage
-{
-    UIGraphicsBeginImageContext(self.view.bounds.size);
-    [self.view drawViewHierarchyInRect: self.view.bounds afterScreenUpdates: YES];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
 }
 
 #pragma mark - Page Control Methods

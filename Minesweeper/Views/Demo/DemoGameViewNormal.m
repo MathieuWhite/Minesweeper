@@ -47,7 +47,7 @@
             CGFloat offsetX = (columnIndex * 64) + 24;
             CGFloat offsetY = (rowIndex * 64) + 12;
             
-            NSUInteger random = arc4random_uniform((uint32_t) 8) + 1;
+            NSInteger random = arc4random_uniform((uint32_t) 8) + 1;
 
             DemoTileView *normalDemoTileView = [[DemoTileView alloc] initWithTileViewType: DemoTileViewTypeNormal];
             [normalDemoTileView setFrame: CGRectMake(offsetX, offsetY, 64, 64)];

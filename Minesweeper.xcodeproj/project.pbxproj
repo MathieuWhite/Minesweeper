@@ -426,7 +426,6 @@
 		};
 		4E9041FC19DB935A008490A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59E948A019EAB30500636E53 /* Warnings.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -439,7 +438,6 @@
 		};
 		4E9041FD19DB935A008490A0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59E948A019EAB30500636E53 /* Warnings.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
