@@ -75,7 +75,6 @@
 		4EE7F4DE19E8538700229B6B /* DemoMinefieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoMinefieldView.m; path = Views/Demo/DemoMinefieldView.m; sourceTree = "<group>"; };
 		4EE7F4E019E85B7A00229B6B /* DemoEnjoy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoEnjoy.h; path = Views/Demo/DemoEnjoy.h; sourceTree = "<group>"; };
 		4EE7F4E119E85B7A00229B6B /* DemoEnjoy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoEnjoy.m; path = Views/Demo/DemoEnjoy.m; sourceTree = "<group>"; };
-		59E948A019EAB30500636E53 /* Warnings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Warnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,7 +176,6 @@
 		4E9041DB19DB9359008490A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				59E948A019EAB30500636E53 /* Warnings.xcconfig */,
 				4E9041DF19DB9359008490A0 /* AppDelegate.h */,
 				4E9041E019DB9359008490A0 /* AppDelegate.m */,
 				4E9041DC19DB9359008490A0 /* Info.plist */,
@@ -261,7 +259,6 @@
 				TargetAttributes = {
 					4E9041D719DB9359008490A0 = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = DR74BHL6H4;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 0;
@@ -435,6 +432,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Minesweeper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -447,6 +445,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Minesweeper/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
