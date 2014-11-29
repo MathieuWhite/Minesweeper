@@ -1,4 +1,4 @@
 Minesweeper
 ===========
 
-The classic Windows game of Minesweeper, optimized for iPhone.
+The classic Windows game of Minesweeper, elegantly optimized for iPhone.
